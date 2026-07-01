@@ -3,6 +3,8 @@ local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
 
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
+
 keymap("n", "<space>", "<Nop>")
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")

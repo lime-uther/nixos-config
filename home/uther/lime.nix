@@ -1,47 +1,58 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstable, ... }:
 
 let
-  dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
+  dotfiles = "${config.home.homeDirectory}/Documents/nixos-dotfiles/config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
 
   configs = {
     nvim = "nvim";
+    "hypr/hyprland.lua" = "hypr/hyprland.lua";
+    "uwsm/env" = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
 in
 
 {
-
   home.username = "uther";
   home.homeDirectory = "/home/uther";
 
   home.stateVersion = "26.05";
 
+  imports = [
+    ../features
+  ];
+
   programs.git = {
     enable = true;
-    userName = "uther";
-    userEmail = "uther4ball@gmail.com";
-    extraConfig = {
+    settings = {
+      user = {
+        email = "uther4ball@gmail.com";
+        name = "uther";
+      };
       init.defaultBranch = "main";
       safe.directory = "~/nixos-dotfiles";
     };
   };
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    systemd.enable = false;
-  };
+  nixpkgs.config.allowUnfree = true;
 
   programs.bash = {
     enable = true;
     profileExtra = ''
-      if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
-        uwsm start hyprland-uwctl.desktop
+      if uwsm check may-start && [ "$XDG_VTNR" = 1 ]; then
+        exec uwsm start hyprland-uwsm.desktop
       fi
     '';
   };
+
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
+      if command -q pokefetch
+        pokefetch
+      else if command -q fastfetch
+        fastfetch
+      end
+
       set fish_greeting #
 
       alias clear "printf '\033[2J\033[3J\033[1;1H'"
@@ -77,14 +88,13 @@ in
   xdg.configFile = builtins.mapAttrs
     (name: subpath: {
       source = create_symlink "${dotfiles}/${subpath}";
-      recursive = true;
     })
     configs;
 
   home.packages = with pkgs; [
+
     brightnessctl
     playerctl
-    neovim
     ripgrep
     nil
     nixpkgs-fmt
@@ -93,12 +103,21 @@ in
     gnumake
     rofi
     awww
-    fastfetch
     bibata-cursors
     grim
     slurp
     swappy
     wl-clipboard
+    gimp
+    neovim
+
+    unstable.yazi
+
+    lua-language-server
+    bash-language-server
+    bash-language-server
+    qt6.qtdeclarative
+
   ];
 
 }

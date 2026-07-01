@@ -1,26 +1,5 @@
 return {
   {
-    "mason-org/mason.nvim",
-    config = function()
-      require("mason").setup()
-
-      vim.lsp.config("*", {
-        capabilities = require("blink.cmp").get_lsp_capabilities()
-      })
-
-      vim.lsp.enable({
-        "bashls",
-        "lua_ls",
-        "texlab",
-        "ts_ls",
-        "rust-analyzer",
-        "qmlls"
-      })
-
-      vim.diagnostic.config({ virtual_text = true })
-    end
-  },
-  {
     "saghen/blink.cmp",
     dependencies = { "rafamadriz/friendly-snippets" },
     version = '1.*',
@@ -64,15 +43,37 @@ return {
           ['<CR>'] = { 'accept_and_enter', 'fallback' }
         }
       }
-    }
+    },
   },
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
+    lazy = false,
     config = function ()
       require("nvim-autopairs").setup({
         check_ts = true,
       })
+
+      local extra_capabilities = {
+        textDocument = {
+          semanticTokens = { multilineTokenSUpport = true }
+        }
+      }
+
+      vim.lsp.config("*", {
+        capabilities = require("blink.cmp").get_lsp_capabilities(extra_capabilities)
+      })
+
+      vim.lsp.enable({
+        "bashls",
+        "lua_ls",
+        "texlab",
+        "ts_ls",
+        "qmlls",
+        "nil_ls",
+      })
+
+      vim.diagnostic.config({ virtual_text = true, signs = true, underline = true })
     end
   }
 }

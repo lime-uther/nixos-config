@@ -1,29 +1,46 @@
 {
-  description = "Lime on NixOs";
-
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-26.05";
+
+    nixpkgs.url = "github:NixOs/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOs/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: {
-    nixosConfigurations.lime-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.uther = import ./home.nix;
-            backupFileExtension = "backup";
-          };
-        }
-      ];
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  let
+    mkNixosNew = host:
+      nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit (self) inputs outputs;};
+        modules = [
+          ./hosts/${host}
+        ];
+      };
+
+    mkHomeNew = host: system:
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {
+          inherit (self) inputs outputs;
+          unstable = nixpkgs-unstable.legacyPackages.${system};
+        };
+        modules = [
+          ./home/uther/${host}.nix
+        ];
+      };
+
+  in
+  {
+    nixosConfigurations = {
+      lime = mkNixosNew "lime";
+    };
+
+    homeConfigurations = {
+      "uther" = mkHomeNew "lime" "x86_64-linux";
     };
   };
+
 }
