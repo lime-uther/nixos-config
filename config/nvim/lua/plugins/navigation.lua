@@ -26,11 +26,14 @@ return {
         columns = { "icon" },
         keymaps = {
           ["<C-h>"] = false,
+          ["<C-l>"] = false,
           ["<M-h>"] = "actions.select_split",
+
+          ["."] = "actions.toggle_hidden",
         },
 
         view_options = {
-          show_hidden = true,
+          show_hidden = false,
         }
       }
 

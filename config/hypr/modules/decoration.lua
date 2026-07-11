@@ -6,7 +6,7 @@ hl.config({
   general = {
     gaps_in     =  5,
     gaps_out    =  10,
-    border_size =  1,
+    border_size =  0,
 
     col = {
       active_border   = "#394956",
@@ -25,7 +25,7 @@ hl.config({
     rounding_power =  2,
 
     active_opacity   = 1.0,
-    inactive_opacity = 0.85,
+    inactive_opacity = 0.7,
 
     shadow = { enabled = false },
 
@@ -35,7 +35,6 @@ hl.config({
       passes    =     3,
       vibrancy  = .2696,
       noise     =     0,
-      xray      =  true
     },
   },
 

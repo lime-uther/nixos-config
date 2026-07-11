@@ -17,13 +17,11 @@ hl.window_rule({
 })
 
 hl.window_rule({
-  name = "fullscreen-waydroid",
-  match = {
-    class = "Waydroid",
-    title = "Waydroid",
-  },
-
-  fullscreen = true,
+    name = "unblur-noclass",
+    match = {
+        tag = "no_class",
+    },
+    no_blur = true
 })
 
 hl.layer_rule({ match = { namespace = "taskbar" },   blur    = true, ignore_alpha = 0.5, })

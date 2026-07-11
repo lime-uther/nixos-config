@@ -12,12 +12,11 @@ hl.config({ scrolling = { fullscreen_on_one_column = true,      } })
 
 hl.config({
   misc = {
+    on_focus_under_fullscreen = 0,
     force_default_wallpaper = 0,
     disable_hyprland_logo   = true,
+    initial_workspace_tracking = 2,
     vrr = 1
   },
-  xwayland = {
-    force_zero_scaling = true;
-  }
 })
 

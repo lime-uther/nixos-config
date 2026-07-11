@@ -34,7 +34,8 @@ hl.bind("SUPER + CONTROL + ALT + SHIFT + SPACE", hl.dsp.exec_cmd(Terminal))
 
 hl.bind(mainMod .. " + E",         hl.dsp.exec_cmd(FileManager)                             )
 hl.bind(mainMod .. " + V",         hl.dsp.window.float({ action = "toggle" })               )
-hl.bind(mainMod .. " + F",         hl.dsp.window.fullscreen()                               )
+hl.bind(mainMod .. " + F",         hl.dsp.window.fullscreen({ mode = "maximized"})                               )
+hl.bind(mainMod .. " + SHIFT + F",         hl.dsp.window.fullscreen()                               )
 hl.bind(mainMod .. " + D",     hl.dsp.exec_cmd("pkill " .. Menu .. " || " .. Launchmenu))
 
 hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("pkill slurp || grim -g \"$(slurp)\" - | wl-copy"))
@@ -79,10 +80,28 @@ end)
 --   hl.notification.create({ text = "off", duration = "1000"})
 -- end, { release = true, non_consuming = true, transparent = true })
 
+local floatables = {
+  ["firefox"] = true,
+  ["kitty"] = true,
+  ["spotify"] = true
+}
+
+local windowsOfWorkspace = {}
+
+hl.on('window.open_early', function (window)
+  if window.class ~= "" then return end
+
+  hl.dispatch(hl.dsp.window.tag({ tag = "no_class", window = window }));
+end)
+
 hl.on('window.open', function (window)
+
+  if not floatables[window.class] then return end
+
   hl.dispatch(hl.dsp.window.float({ action = "on", window = window }))
   hl.dispatch(hl.dsp.window.resize({ x = 800, y = 600, false, window = window }))
   hl.dispatch(hl.dsp.window.move({ x = 1920/2 - 800/2, y = 1080/2 - 600/2, false, window = window }))
+
 end)
 
 hl.bind(mainMod .. " + C", hl.dsp.window.move({ x = 1920/2 - 800/2, y = 1080/2 - 600/2, false }))

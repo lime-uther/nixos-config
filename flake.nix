@@ -8,10 +8,26 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
   let
+    forEachSystem = nixpkgs.lib.genAttrs [
+      "x86_64-linux"
+    ];
+    forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
+
+    mkShell = pkgs: pkgs.mkShell {
+      packages = [
+        pkgs.home-manager
+      ];
+    };
+
     mkNixosNew = host:
       nixpkgs.lib.nixosSystem {
         specialArgs = { inherit (self) inputs outputs;};
@@ -31,12 +47,15 @@
           ./home/uther/${host}.nix
         ];
       };
-
   in
   {
     nixosConfigurations = {
       lime = mkNixosNew "lime";
     };
+
+    devShells = forEachPkgs (pkgs: {
+      default = mkShell pkgs;
+    });
 
     homeConfigurations = {
       "uther" = mkHomeNew "lime" "x86_64-linux";
