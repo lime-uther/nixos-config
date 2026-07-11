@@ -1,4 +1,4 @@
-{ config, pkgs, create_symlink, ... }:
+{ config, pkgs, create_symlink, inputs, ... }:
 
 {
 
@@ -45,7 +45,9 @@
     bash-language-server
     qt6.qtdeclarative
 
-  ];
+    inputs.zennotes.packages.${pkgs.system}.zennotes-desktop
+    inputs.zennotes.packages.${pkgs.system}.zennotes-server
 
+  ];
 
 }

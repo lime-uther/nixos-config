@@ -96,7 +96,8 @@
         "aagl": "aagl",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "zennotes": "zennotes"
       }
     },
     "rust-overlay": {
@@ -117,6 +118,26 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "zennotes": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783735288,
+        "narHash": "sha256-BpUSHqSbURq1VzILqRQ0JglRUHqPhK3PQM4MHD9b1kY=",
+        "owner": "Zennotes",
+        "repo": "zennotes",
+        "rev": "a2fb27dc7037308c5f07cdeb44a9661e963af47d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Zennotes",
+        "repo": "zennotes",
         "type": "github"
       }
     }
