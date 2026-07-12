@@ -91,12 +91,29 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1781577229,
+        "narHash": "sha256-lrp67w8AulE9Ks53n27I45ADSzbOCn4H+CNW1Ck8B+8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "aagl": "aagl",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "shojiwm": "shojiwm",
         "zennotes": "zennotes"
       }
     },
@@ -119,6 +136,24 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "shojiwm": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1783782610,
+        "narHash": "sha256-ErMvo0dmf9sfZIuxlLQ9QRpCaZgvuRUQAxHDrmtlsVA=",
+        "ref": "refs/heads/main",
+        "rev": "e320d201d61f4ca07d4f89b4627b073c1fa13279",
+        "revCount": 446,
+        "type": "git",
+        "url": "file:///home/uther/Documents/projects/ShojiWM"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/uther/Documents/projects/ShojiWM"
       }
     },
     "zennotes": {

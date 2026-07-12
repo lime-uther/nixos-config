@@ -1,0 +1,26 @@
+building the system configuration...
+these 23 derivations will be built:
+
+/nix/store/31wbimlbi3wdzdrgd4n93ajl5jcb0mwx-shojiwm-typescript-runtime-0.1.0-npm-deps.drv
+/nix/store/55qp813pnigw16g184dqr10zdn5hx4q9-shojiwm-typescript-runtime-0.1.0.drv
+/nix/store/2ljlq608mzhqxsrd0fw640blh8lm8w66-smithay-4ff4739.drv
+/nix/store/cfvhgs8zbzyxqlmycalqkrpyqzpwzrsr-smithay-drm-extras-0.1.0.drv
+/nix/store/l3jv4gs11baszjqjllf40fa63qc3xj5q-smithay-0.7.0.drv
+/nix/store/q7rdgm60bifg5wmnafxj995xbn6dcy9x-cargo-vendor-dir.drv
+/nix/store/4kg0cnylmqymffy74i291cq1d61f7czb-shojiwm-0.1.0.drv
+/nix/store/dhn8i7pv4nmnlyb4lmryig1kzigr4yrd-user-generators.drv
+/nix/store/f4n415jh2mf0cs0d5ivb7iv978xvbn75-system-shutdown.drv
+/nix/store/g4r9khw9040yg5h1ji3jyw2w2w01zp99-system-path.drv
+/nix/store/il0ph1lxfdgvzc3rhyavxy7sg9c9rb0p-dbus-1.drv
+/nix/store/clfazc3ziw3jfdv5xl09nclqywv0x98i-X-Restart-Triggers-dbus-broker.drv
+/nix/store/45nhp43fffhcq1xdqg33vlm6ja54pid8-unit-dbus-broker.service.drv
+/nix/store/j5q2y80cq891w0dh8bd3zgsps3w63r20-X-Restart-Triggers-polkit.drv
+/nix/store/k31l9j87akca2jnc3nzlqjwlha7qlq81-unit-polkit.service.drv
+/nix/store/m0brfzgzlysrw55v95rh2cf8fwbvqwbk-system-units.drv
+/nix/store/x7h636m7674j610b9dwfr6f0y4ww7ilq-system-generators.drv
+/nix/store/2ihkhsrs1h06pmky2lsjy8l3p9z508r2-unit-dbus-broker.service.drv
+/nix/store/z2dlzbyddk589kadwhdmqsjnqh8f1n2p-unit-xdg-desktop-portal-shojiwm.service.drv
+/nix/store/yyh5x1v699cplmj0mvnb1vmylv90mpdr-user-units.drv
+/nix/store/b2lbqgmrjiqfv3n03wlbpz0brmikj0ip-etc.drv
+/nix/store/fikxf6j900y4xmsxbg5dcsvb13y717h1-activate.drv
+/nix/store/2ddlz2khncnblyas6qnmcr9facypapb0-nixos-system-lime-nixos-26.05.20260708.74cc63f.drv
