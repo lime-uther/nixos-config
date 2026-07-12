@@ -313,6 +313,43 @@ COMPOSITOR.key.bind("yazi", "Super+E", () => {
   COMPOSITOR.process.spawn({ command: "kitty -e yazi" });
 });
 
+
+COMPOSITOR.key.bind("volume_up", "XF86AudioRaiseVolume", () => {
+  COMPOSITOR.process.spawn({ command: "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+" });
+});
+COMPOSITOR.key.bind("volume_down", "XF86AudioLowerVolume", () => {
+  COMPOSITOR.process.spawn({ command: "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" });
+});
+COMPOSITOR.key.bind("mute", "XF86AudioMute", () => {
+  COMPOSITOR.process.spawn({ command: "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" });
+});
+COMPOSITOR.key.bind("mute_mic", "XF86AudioMicMute", () => {
+  COMPOSITOR.process.spawn({ command: "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle" });
+});
+COMPOSITOR.key.bind("brightness_up", "XF86MonBrightnessUp", () => {
+  COMPOSITOR.process.spawn({ command: "brightnessctl -e4 -n2 set 5%+" });
+});
+COMPOSITOR.key.bind("brightness_down", "XF86MonBrightnessDown", () => {
+  COMPOSITOR.process.spawn({ command: "brightnessctl -e4 -n2 set 5%-" });
+});
+
+COMPOSITOR.key.bind("next", "XF86AudioNext", () => {
+  COMPOSITOR.process.spawn({ command: "playerctl next" });
+});
+COMPOSITOR.key.bind("pause-play", "XF86AudioPause", () => {
+  COMPOSITOR.process.spawn({ command: "playerctl play-pause" });
+});
+COMPOSITOR.key.bind("play-pause", "XF86AudioPlay", () => {
+  COMPOSITOR.process.spawn({ command: "playerctl play-pause" });
+});
+COMPOSITOR.key.bind("previous", "XF86AudioPrev", () => {
+  COMPOSITOR.process.spawn({ command: "playerctl previous" });
+});
+
+COMPOSITOR.key.bind("yazi", "Super+E", () => {
+  COMPOSITOR.process.spawn({ command: "kitty -e yazi" });
+});
+
 // // Resolve the monitor under the cursor and toggle shoji-bar-2's StartMenu via ags request.
 // function toggleStartMenu() {
 //   const monitor = HYBRID_WINDOW_MANAGER.getCurrentMonitorName();
