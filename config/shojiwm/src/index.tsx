@@ -291,6 +291,11 @@ COMPOSITOR.process.service("cliphist-image", {
   restart: "on-exit",
 });
 
+COMPOSITOR.process.once("awww", {
+  command: "awww-daemon",
+  runPolicy: "once-per-session"
+})
+
 COMPOSITOR.key.bind("terminal", "Super+Control+Alt+Shift+Space", () => {
   COMPOSITOR.process.spawn({ command: ["kitty"] });
 });
@@ -659,7 +664,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
           distortion_depth: 0.2,
           distortion_strength: 0.15,
           chromatic_shift_px: 3.0,
-          glass_tint: 0.9,
+          glass_tint: 1,
         },
       }),
     ],

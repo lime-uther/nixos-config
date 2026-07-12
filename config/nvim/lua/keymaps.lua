@@ -3,8 +3,6 @@ local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
 
-vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = "LSP Code Action" })
-
 keymap("n", "<space>", "<Nop>")
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
@@ -39,8 +37,10 @@ vim.keymap.set("n", "<leader>cd", function()
 
   -- if no git repository directory could be found
   if not (vim.v.shell_error == 0 and root and root ~= "") then
-    root = vim.fn.expand("%:p:h")
+    root = current_dir
   end
+
+  root = string.gsub(root, "^oil://", "")
 
   vim.fn.chdir(root)
   vim.notify("Changed directory to: " .. root, vim.log.levels.INFO)

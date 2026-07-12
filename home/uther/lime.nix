@@ -14,17 +14,6 @@
 
   dotfiles = "${config.home.homeDirectory}/Documents/nixos-dotfiles/config";
 
-  programs.bash = {
-    enable = true;
-    profileExtra = ''
-      export GTK_USE_PORTAL="1"
-
-      if uwsm check may-start && [ "$XDG_VTNR" = 1 ]; then
-        exec shoji_wm --tty
-      fi
-    '';
-  };
-
   xdg.configFile.nvim.source = create_symlink "${config.dotfiles}/nvim";
 
   home.packages = with pkgs; [

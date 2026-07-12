@@ -24,5 +24,11 @@
     nerd-fonts.jetbrains-mono
   ];
 
+  services = {
+    xserver.enable = true;
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+  };
+
   system.stateVersion = "26.05";
 }

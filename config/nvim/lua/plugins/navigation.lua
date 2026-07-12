@@ -27,6 +27,7 @@ return {
         keymaps = {
           ["<C-h>"] = false,
           ["<C-l>"] = false,
+
           ["<M-h>"] = "actions.select_split",
 
           ["."] = "actions.toggle_hidden",
