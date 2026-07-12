@@ -313,6 +313,18 @@ COMPOSITOR.key.bind("yazi", "Super+E", () => {
   COMPOSITOR.process.spawn({ command: "kitty -e yazi" });
 });
 
+COMPOSITOR.key.bind("prtsc-part", "Super+Print", () => {
+  COMPOSITOR.process.spawn({ command: "pkill slurp || grim -g \"$(slurp)\" - | wl-copy" });
+});
+
+COMPOSITOR.key.bind("prtsc-full", "Print", () => {
+  COMPOSITOR.process.spawn({ command: "grim -c - | wl-copy" });
+});
+
+COMPOSITOR.key.bind("prtsc-ui", "Control+Print", () => {
+  COMPOSITOR.process.spawn({ command: "pkill slurp || grim -g \"$(slurp)\" - | swappy -f -" });
+});
+
 
 COMPOSITOR.key.bind("volume_up", "XF86AudioRaiseVolume", () => {
   COMPOSITOR.process.spawn({ command: "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+" });
