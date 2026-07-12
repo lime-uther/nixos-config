@@ -9,7 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    shojiwm.url = "git+file:///home/uther/Documents/projects/ShojiWM";
+    shojiwm.url = "github:bea4dev/ShojiWM";
 
     aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";

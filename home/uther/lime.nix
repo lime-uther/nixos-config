@@ -5,6 +5,7 @@
   imports = [
     ./global
     ./features/hyprland.nix
+    ./features/shojiwm.nix
     ./features/kitty.nix
     ./features/pokefetch.nix
     ./features/spotify.nix

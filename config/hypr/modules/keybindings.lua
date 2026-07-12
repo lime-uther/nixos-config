@@ -28,7 +28,20 @@ hl.device({ name = "2.4g-mouse", sensitivity = 1 })
 ---- KEYBINDINGS ----
 ---------------------
 
+
 local mainMod = "SUPER"
+
+hl.bind(mainMod .. " + ALT + R", function ()
+  hl.notification.create({ text = "shoji mode", duration = "1000"})
+  hl.dispatch(hl.dsp.submap("shoji"))
+end);
+
+hl.define_submap("shoji", function ()
+  hl.bind(mainMod .. " + ALT + R", function ()
+    hl.notification.create({ text = "exited shoji mode", duration = "1000"})
+    hl.dispatch(hl.dsp.submap("reset"))
+  end);
+end)
 
 hl.bind("SUPER + CONTROL + ALT + SHIFT + SPACE", hl.dsp.exec_cmd(Terminal))
 
