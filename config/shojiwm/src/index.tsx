@@ -52,7 +52,15 @@ COMPOSITOR.env.apply({
   SDL_IM_MODULE: "fcitx",
   GLFW_IM_MODULE: "ibus",
   ELECTRON_OZONE_PLATFORM_HINT: "wayland",
+
+  GDK_SCALE: "2",
+
+  QT_WAYLAND_DISABLE_WINDOWDECORATION: "1",
+  QT_AUTO_SCREEN_SCALE_FACTOR: "1",
+
+  MOZ_ENABLE_WAYLAND: "1"
 });
+
 COMPOSITOR.env.publish();
 
 const HYBRID_WINDOW_MANAGER = new HybridWindowManager(naturalRootRect);
@@ -314,7 +322,7 @@ COMPOSITOR.key.bind("yazi", "Super+E", () => {
 });
 
 COMPOSITOR.key.bind("prtsc-part", "Super+Print", () => {
-  COMPOSITOR.process.spawn({ command: "pkill slurp || grim -g \"$(slurp)\" - | wl-copy" });
+  COMPOSITOR.process.spawn({ command: "pkill slurp || grim -g -c \"$(slurp)\" - | wl-copy" });
 });
 
 COMPOSITOR.key.bind("prtsc-full", "Print", () => {
@@ -675,7 +683,7 @@ function naturalRootRect(window: WaylandWindow): ManagedWindowRect {
 COMPOSITOR.window.composition = (window: WaylandWindow) => {
   const workspaceVisible = window.state[WINDOW_STATE_WORKSPACE_VISIBLE];
   const workspaceOffsetY = window.state[WINDOW_STATE_WORKSPACE_OFFSET_Y];
-  const workspaceOpacity = window.state[WINDOW_STATE_WORKSPACE_OPACITY];
+  // const workspaceOpacity = window.state[WINDOW_STATE_WORKSPACE_OPACITY];
   const tileDragging = window.state[WINDOW_STATE_TILE_DRAGGING];
   const managedRect = computed(() => {
     const rect = window.state[WINDOW_STATE_RECT]();
@@ -686,6 +694,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       height: read(rect.height),
     };
   });
+
   const forceRectSize = computed(
     () => window.isResizable() && !window.isTransient(),
   );
@@ -699,6 +708,10 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
 
   const borderColor = window.isFocused((focused) =>
     focused ? "#d7ba7d" : "#4f5666",
+  );
+
+  const windowOpacity = window.isFocused((focused) => 
+    focused ? 1.0 : 0.8,
   );
 
   const backgroundShader = compileEffect({
@@ -746,7 +759,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
         rect={managedRect}
         zIndex={FULLSCREEN_Z_INDEX}
         visibleOutputs={window.state[WINDOW_STATE_VISIBLE_OUTPUTS]}
-        opacity={workspaceOpacity}
+        opacity={windowOpacity}
         forceRectSize={forceRectSize}
         tiled={tiled}
         idle={inactive}
@@ -767,7 +780,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       rect={managedRect}
       zIndex={HYBRID_WINDOW_MANAGER.getWindowZIndex(window)}
       visibleOutputs={window.state[WINDOW_STATE_VISIBLE_OUTPUTS]}
-      opacity={workspaceOpacity}
+      opacity={windowOpacity}
       forceRectSize={forceRectSize}
       tiled={tiled}
       idle={inactive}

@@ -343,12 +343,12 @@ const MINIMIZE_ANIMATION_CHANNEL = "window.minimize";
 const WORKSPACE_VISUAL_ANIMATION_CHANNEL = "workspace.visual";
 const WORKSPACE_VISUAL_RECT_ANIMATION_CHANNEL = `${WORKSPACE_VISUAL_ANIMATION_CHANNEL}.rect`;
 const WORKSPACE_VISUAL_OPACITY_ANIMATION_CHANNEL = `${WORKSPACE_VISUAL_ANIMATION_CHANNEL}.opacity`;
-export const WINDOW_BORDER_PX = 2;
+export const WINDOW_BORDER_PX = 0;
 export const TITLEBAR_HEIGHT = 30;
 export const MAXIMIZED_WINDOW_PADDING = {
-  top: 8,
-  right: 8,
-  bottom: 8,
+  top: 0,
+  right: 0,
+  bottom: 9,
   left: 8,
 };
 

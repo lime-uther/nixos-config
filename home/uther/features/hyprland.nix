@@ -16,7 +16,6 @@
     rofi
     awww
     unstable.yazi
-    bibata-cursors
   ];
 
 }
