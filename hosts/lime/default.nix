@@ -6,6 +6,7 @@
     ./hardware-configuration.nix
     ../common/global
     ../common/optional/hyprland.nix
+    ../common/optional/shojiwm.nix
 
     inputs.aagl.nixosModules.default
 

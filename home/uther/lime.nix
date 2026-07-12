@@ -8,6 +8,7 @@
     ./features/kitty.nix
     ./features/pokefetch.nix
     ./features/spotify.nix
+    ./features/obs.nix
   ];
 
   dotfiles = "${config.home.homeDirectory}/Documents/nixos-dotfiles/config";
@@ -18,7 +19,7 @@
       export GTK_USE_PORTAL="1"
 
       if uwsm check may-start && [ "$XDG_VTNR" = 1 ]; then
-        exec uwsm start hyprland-uwsm.desktop
+        exec shoji_wm --tty
       fi
     '';
   };
@@ -42,7 +43,7 @@
 
     lua-language-server
     bash-language-server
-    bash-language-server
+    typescript-language-server
     qt6.qtdeclarative
 
     inputs.zennotes.packages.${pkgs.system}.zennotes-desktop
