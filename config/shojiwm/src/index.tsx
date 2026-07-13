@@ -705,6 +705,24 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
     () => minimizeVisualIdle() || (!workspaceVisible() && !tileDragging()),
   );
 
+  const backgroundShader = compileEffect({
+    input: backdropSource(),
+    capturePadding: 24,
+    invalidate: { kind: "on-source-damage-box", damagePadding: 8 },
+    pipeline: [
+      dualKawaseBlur({ radius: 4, passes: 2 }),
+      shaderStage(loadShader("./src/liquid-glass.frag"), {
+        uniforms: {
+          glass_radius_px: 12.0,
+          distortion_depth: 0.2,
+          distortion_strength: 0.15,
+          chromatic_shift_px: 3.0,
+          glass_tint: 1,
+        },
+      }),
+    ],
+  });
+
   const borderColor = window.isFocused((focused) =>
     focused ? "#98ccf9" : "#8c9198",
   );
@@ -714,6 +732,16 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       <ClientWindow />
     </Box>
   );
+
+  const TERMINALS = ["kitty", "ghostty"];
+
+  if (TERMINALS.includes(window.appId() ?? "")) {
+    innerComponents = (
+      <ShaderEffect shader={backgroundShader} direction="column">
+        <ClientWindow />
+      </ShaderEffect>
+    );
+  }
 
   if (window.state[WINDOW_STATE_FULLSCREEN]()) {
     return (
