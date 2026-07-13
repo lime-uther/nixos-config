@@ -7,6 +7,7 @@
     ../common/global
     ../common/optional/hyprland.nix
     ../common/optional/shojiwm.nix
+    ../common/optional/gnome.nix
 
     inputs.aagl.nixosModules.default
 

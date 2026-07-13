@@ -9,15 +9,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    shojiwm.url = "github:bea4dev/ShojiWM";
-
-    aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix";
+    shojiwm = {
+      url = "github:bea4dev/ShojiWM";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zennotes = {
-      url = "github:Zennotes/zennotes";
+    matugen = {
+      url = "github:/InioX/Matugen";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -57,17 +60,18 @@
       };
   in
   {
-    nixosConfigurations = {
-      lime = mkNixosNew "lime";
-    };
 
     devShells = forEachPkgs (pkgs: {
       default = mkShell pkgs;
     });
 
-    homeConfigurations = {
-      "uther" = mkHomeNew "lime" "x86_64-linux";
+    nixosConfigurations = {
+      lime = mkNixosNew "lime";
     };
-  };
 
+    homeConfigurations = {
+        "uther" = mkHomeNew "lime" "x86_64-linux";
+    };
+
+  };
 }

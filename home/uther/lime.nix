@@ -10,6 +10,7 @@
     ./features/pokefetch.nix
     ./features/spotify.nix
     ./features/obs.nix
+    ./features/matugen.nix
   ];
 
   dotfiles = "${config.home.homeDirectory}/Documents/nixos-dotfiles/config";
@@ -34,10 +35,6 @@
     bash-language-server
     typescript-language-server
     qt6.qtdeclarative
-
-    inputs.zennotes.packages.${pkgs.system}.zennotes-desktop
-    inputs.zennotes.packages.${pkgs.system}.zennotes-server
-
   ];
 
   home.pointerCursor = {

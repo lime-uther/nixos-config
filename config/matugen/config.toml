@@ -1,0 +1,13 @@
+[config]
+version_check = false
+cachin = false
+expr_prefix = "{{"
+expr_postfix = "}}"
+
+[config.wallpaper]
+set = true
+command = "awww img --transition-type wipe {{ image }}"
+
+[templates.quickshell]
+input_path = 'templates/quickshell.qml'
+output_path = 'test/Colors.qml'

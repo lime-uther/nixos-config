@@ -30,7 +30,6 @@ import type { CompositionRenderable, ManagedWindowRect } from "shoji_wm/types";
 import { createIpcServer } from "shoji_wm/ipc";
 import {
   HybridWindowManager,
-  TITLEBAR_HEIGHT,
   WINDOW_BORDER_PX,
   WINDOW_STATE_FULLSCREEN,
   WINDOW_STATE_MINIMIZED,
@@ -370,26 +369,6 @@ COMPOSITOR.key.bind("yazi", "Super+E", () => {
   COMPOSITOR.process.spawn({ command: "kitty -e yazi" });
 });
 
-// // Resolve the monitor under the cursor and toggle shoji-bar-2's StartMenu via ags request.
-// function toggleStartMenu() {
-//   const monitor = HYBRID_WINDOW_MANAGER.getCurrentMonitorName();
-//   COMPOSITOR.process.spawn({
-//     command: ["ags", "request", "-i", "ags", "start-menu", "toggle", monitor],
-//   });
-// }
-// COMPOSITOR.key.bind("start-menu", "Super+A", toggleStartMenu);
-// // Super tap (fires on release only, when no other key/button was pressed in between).
-// COMPOSITOR.key.bind("start-menu-tap", "Super", toggleStartMenu, {
-//   on: "release",
-// });
-// // Toggle shoji-bar-2's clipboard history on the monitor under the cursor.
-// COMPOSITOR.key.bind("clipboard", "Super+V", () => {
-//   const monitor = HYBRID_WINDOW_MANAGER.getCurrentMonitorName();
-//   COMPOSITOR.process.spawn({
-//     command: ["ags", "request", "-i", "ags", "clipboard", "toggle", monitor],
-//   });
-// });
-
 COMPOSITOR.key.bind("toggle-tiling-mode", "Super+S", () => {
   HYBRID_WINDOW_MANAGER.toggleCurrentWorkspaceTiling();
   scheduleWorkspaceBroadcast();
@@ -674,16 +653,16 @@ function naturalRootRect(window: WaylandWindow): ManagedWindowRect {
   const client = window.position;
   return {
     x: client.x - WINDOW_BORDER_PX,
-    y: client.y - TITLEBAR_HEIGHT - WINDOW_BORDER_PX,
+    y: client.y - WINDOW_BORDER_PX,
     width: client.width + WINDOW_BORDER_PX * 2,
-    height: client.height + TITLEBAR_HEIGHT + WINDOW_BORDER_PX * 2,
+    height: client.height + WINDOW_BORDER_PX * 2,
   };
 }
 
 COMPOSITOR.window.composition = (window: WaylandWindow) => {
   const workspaceVisible = window.state[WINDOW_STATE_WORKSPACE_VISIBLE];
   const workspaceOffsetY = window.state[WINDOW_STATE_WORKSPACE_OFFSET_Y];
-  // const workspaceOpacity = window.state[WINDOW_STATE_WORKSPACE_OPACITY];
+  const workspaceOpacity = window.state[WINDOW_STATE_WORKSPACE_OPACITY];
   const tileDragging = window.state[WINDOW_STATE_TILE_DRAGGING];
   const managedRect = computed(() => {
     const rect = window.state[WINDOW_STATE_RECT]();
@@ -694,7 +673,6 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       height: read(rect.height),
     };
   });
-
   const forceRectSize = computed(
     () => window.isResizable() && !window.isTransient(),
   );
@@ -707,46 +685,14 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
   );
 
   const borderColor = window.isFocused((focused) =>
-    focused ? "#d7ba7d" : "#4f5666",
+    focused ? "#98ccf9" : "#42474e",
   );
-
-  const windowOpacity = window.isFocused((focused) => 
-    focused ? 1.0 : 0.8,
-  );
-
-  const backgroundShader = compileEffect({
-    input: backdropSource(),
-    capturePadding: 24,
-    invalidate: { kind: "on-source-damage-box", damagePadding: 8 },
-    pipeline: [
-      dualKawaseBlur({ radius: 4, passes: 2 }),
-      shaderStage(loadShader("./src/liquid-glass.frag"), {
-        uniforms: {
-          glass_radius_px: 10.0,
-          distortion_depth: 0.2,
-          distortion_strength: 0.15,
-          chromatic_shift_px: 3.0,
-          glass_tint: 1,
-        },
-      }),
-    ],
-  });
 
   var innerComponents = (
     <Box direction="column">
       <ClientWindow />
     </Box>
   );
-
-  const TERMINALS = ["kitty", "ghostty"];
-
-  if (TERMINALS.includes(window.appId() ?? "")) {
-    innerComponents = (
-      <ShaderEffect shader={backgroundShader} direction="column">
-        <ClientWindow />
-      </ShaderEffect>
-    );
-  }
 
   // Fullscreen: drop all chrome (titlebar, border, rounded corners) and let
   // the client surface fill its managed rect edge to edge. The rect is set to
@@ -759,7 +705,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
         rect={managedRect}
         zIndex={FULLSCREEN_Z_INDEX}
         visibleOutputs={window.state[WINDOW_STATE_VISIBLE_OUTPUTS]}
-        opacity={windowOpacity}
+        opacity={workspaceOpacity}
         forceRectSize={forceRectSize}
         tiled={tiled}
         idle={inactive}
@@ -780,7 +726,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       rect={managedRect}
       zIndex={HYBRID_WINDOW_MANAGER.getWindowZIndex(window)}
       visibleOutputs={window.state[WINDOW_STATE_VISIBLE_OUTPUTS]}
-      opacity={windowOpacity}
+      opacity={workspaceOpacity}
       forceRectSize={forceRectSize}
       tiled={tiled}
       idle={inactive}
@@ -789,7 +735,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       <WindowBorder
         style={{
           border: { px: WINDOW_BORDER_PX, color: borderColor },
-          borderRadius: 10,
+          borderRadius: 12,
           background: "#10131900",
           padding: 0,
           paddingX: 0,

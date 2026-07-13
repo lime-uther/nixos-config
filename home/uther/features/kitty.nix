@@ -16,7 +16,7 @@ _: {
     shell = "fish";
 
     confirm_os_window_close = 0;
-    background_opacity = 0.75;
+    background_opacity = 1;
     window_padding_width = 5;
     };
   };

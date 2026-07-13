@@ -7,12 +7,21 @@
     ./pkgs.nix
   ];
 
-  boot.loader = {
-    systemd-boot = {
-      enable      =  true;
-      consoleMode = "max";
+  boot = {
+
+    consoleLogLevel = 3;
+    initrd.verbose = false;
+
+    kernelParams = [ "quiet" ];
+
+    loader = {
+      systemd-boot = {
+        enable      =  true;
+        consoleMode = "max";
+      };
+      efi.canTouchEfiVariables = true;
     };
-    efi.canTouchEfiVariables = true;
+
   };
 
   time.timeZone = "Asia/Manila";
@@ -26,8 +35,6 @@
 
   services = {
     xserver.enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
   };
 
   system.stateVersion = "26.05";
