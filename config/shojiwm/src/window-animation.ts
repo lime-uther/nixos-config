@@ -119,3 +119,4 @@ export function stopRectAnimation(
     setActiveRectTarget(window, windowRectState, undefined);
     window.cancelAnimation(rectAnimationChannel(windowRectState));
 }
+

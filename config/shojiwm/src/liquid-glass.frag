@@ -69,3 +69,4 @@ vec4 shader_main(EffectContext effect) {
     glassColor *= vec3(glass_tint);
     return vec4(glassColor, 1.0);
 }
+

@@ -25,6 +25,7 @@ import {
   compilePopupEffect,
   popupSource,
 } from "shoji_wm";
+
 import type { CompositionRenderable, ManagedWindowRect } from "shoji_wm/types";
 import { createIpcServer } from "shoji_wm/ipc";
 import {
@@ -51,13 +52,16 @@ COMPOSITOR.env.apply({
   SDL_IM_MODULE: "fcitx",
   GLFW_IM_MODULE: "ibus",
   ELECTRON_OZONE_PLATFORM_HINT: "wayland",
-});
-COMPOSITOR.env.publish();
 
-COMPOSITOR.cursor.configure({
-  theme: "Bibata-Modern-Ice",
-  size: 24,
+  GDK_SCALE: "2",
+
+  QT_WAYLAND_DISABLE_WINDOWDECORATION: "1",
+  QT_AUTO_SCREEN_SCALE_FACTOR: "1",
+
+  MOZ_ENABLE_WAYLAND: "1"
 });
+
+COMPOSITOR.env.publish();
 
 const HYBRID_WINDOW_MANAGER = new HybridWindowManager(naturalRootRect);
 const HOT_RELOAD_WINDOW_MANAGER_STATE = "config.hybrid-window-manager";
@@ -295,114 +299,140 @@ COMPOSITOR.process.service("cliphist-image", {
   restart: "on-exit",
 });
 
-COMPOSITOR.key.bind("terminal", "Super+T", () => {
+COMPOSITOR.process.once("awww", {
+  command: "awww-daemon",
+  runPolicy: "once-per-session"
+})
+
+COMPOSITOR.key.bind("terminal", "Super+Control+Alt+Shift+Space", () => {
   COMPOSITOR.process.spawn({ command: ["kitty"] });
 });
 
+COMPOSITOR.key.bind("exit", "Super+M", () => {
+  COMPOSITOR.process.spawn({ command: "pkill shoji_wm" });
+});
+
 // if kwallet6 is used as the password store, be sure to add the --password-store=kwallet6 flag
-COMPOSITOR.key.bind("chrome", "Super+B", () => {
-  COMPOSITOR.process.spawn({
-    command:
-      "google-chrome-stable --enable-features=OzonePlatform --ozone-platform=wayland",
-  });
+COMPOSITOR.key.bind("rofi", "SUPER+D", () => {
+  COMPOSITOR.process.spawn({ command: "rofi -show drun", });
 });
 
-COMPOSITOR.key.bind("discord", "Super+D", () => {
-  COMPOSITOR.process.spawn({
-    command:
-      "discord --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime --disable-gpu",
-  });
+COMPOSITOR.key.bind("yazi", "Super+E", () => {
+  COMPOSITOR.process.spawn({ command: "kitty -e yazi" });
 });
 
-COMPOSITOR.key.bind("dolphin", "Super+E", () => {
-  COMPOSITOR.process.spawn({ command: "dolphin" });
+COMPOSITOR.key.bind("prtsc-part", "Super+Print", () => {
+  COMPOSITOR.process.spawn({ command: "pkill slurp || grim -g -c \"$(slurp)\" - | wl-copy" });
 });
 
-COMPOSITOR.key.bind("play", "XF86AudioPlay", () => {
-  COMPOSITOR.process.spawn({ command: "playerctl play-pause" });
+COMPOSITOR.key.bind("prtsc-full", "Print", () => {
+  COMPOSITOR.process.spawn({ command: "grim -c - | wl-copy" });
 });
-COMPOSITOR.key.bind("pause", "XF86AudioPause", () => {
-  COMPOSITOR.process.spawn({ command: "playerctl play-pause" });
+
+COMPOSITOR.key.bind("prtsc-ui", "Control+Print", () => {
+  COMPOSITOR.process.spawn({ command: "pkill slurp || grim -g \"$(slurp)\" - | swappy -f -" });
 });
+
+
+COMPOSITOR.key.bind("volume_up", "XF86AudioRaiseVolume", () => {
+  COMPOSITOR.process.spawn({ command: "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+" });
+});
+COMPOSITOR.key.bind("volume_down", "XF86AudioLowerVolume", () => {
+  COMPOSITOR.process.spawn({ command: "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" });
+});
+COMPOSITOR.key.bind("mute", "XF86AudioMute", () => {
+  COMPOSITOR.process.spawn({ command: "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" });
+});
+COMPOSITOR.key.bind("mute_mic", "XF86AudioMicMute", () => {
+  COMPOSITOR.process.spawn({ command: "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle" });
+});
+COMPOSITOR.key.bind("brightness_up", "XF86MonBrightnessUp", () => {
+  COMPOSITOR.process.spawn({ command: "brightnessctl -e4 -n2 set 5%+" });
+});
+COMPOSITOR.key.bind("brightness_down", "XF86MonBrightnessDown", () => {
+  COMPOSITOR.process.spawn({ command: "brightnessctl -e4 -n2 set 5%-" });
+});
+
 COMPOSITOR.key.bind("next", "XF86AudioNext", () => {
   COMPOSITOR.process.spawn({ command: "playerctl next" });
 });
-COMPOSITOR.key.bind("prev", "XF86AudioPrev", () => {
+COMPOSITOR.key.bind("pause-play", "XF86AudioPause", () => {
+  COMPOSITOR.process.spawn({ command: "playerctl play-pause" });
+});
+COMPOSITOR.key.bind("play-pause", "XF86AudioPlay", () => {
+  COMPOSITOR.process.spawn({ command: "playerctl play-pause" });
+});
+COMPOSITOR.key.bind("previous", "XF86AudioPrev", () => {
   COMPOSITOR.process.spawn({ command: "playerctl previous" });
 });
 
-// Resolve the monitor under the cursor and toggle shoji-bar-2's StartMenu via ags request.
-function toggleStartMenu() {
-  const monitor = HYBRID_WINDOW_MANAGER.getCurrentMonitorName();
-  COMPOSITOR.process.spawn({
-    command: ["ags", "request", "-i", "ags", "start-menu", "toggle", monitor],
-  });
-}
-COMPOSITOR.key.bind("start-menu", "Super+A", toggleStartMenu);
-// Super tap (fires on release only, when no other key/button was pressed in between).
-COMPOSITOR.key.bind("start-menu-tap", "Super", toggleStartMenu, {
-  on: "release",
+COMPOSITOR.key.bind("yazi", "Super+E", () => {
+  COMPOSITOR.process.spawn({ command: "kitty -e yazi" });
 });
-// Toggle shoji-bar-2's clipboard history on the monitor under the cursor.
-COMPOSITOR.key.bind("clipboard", "Super+V", () => {
-  const monitor = HYBRID_WINDOW_MANAGER.getCurrentMonitorName();
-  COMPOSITOR.process.spawn({
-    command: ["ags", "request", "-i", "ags", "clipboard", "toggle", monitor],
-  });
-});
-COMPOSITOR.key.bind("screenshot", "Super+P", () => {
-  COMPOSITOR.process.spawn({
-    command: "hyprshot -m region --raw | swappy -f -",
-  });
-});
-COMPOSITOR.key.bind("screenshot-freeze", "Super+Ctrl+P", () => {
-  COMPOSITOR.process.spawn({
-    command: "hyprshot -m region --freeze --raw | swappy -f -",
-  });
-});
+
+// // Resolve the monitor under the cursor and toggle shoji-bar-2's StartMenu via ags request.
+// function toggleStartMenu() {
+//   const monitor = HYBRID_WINDOW_MANAGER.getCurrentMonitorName();
+//   COMPOSITOR.process.spawn({
+//     command: ["ags", "request", "-i", "ags", "start-menu", "toggle", monitor],
+//   });
+// }
+// COMPOSITOR.key.bind("start-menu", "Super+A", toggleStartMenu);
+// // Super tap (fires on release only, when no other key/button was pressed in between).
+// COMPOSITOR.key.bind("start-menu-tap", "Super", toggleStartMenu, {
+//   on: "release",
+// });
+// // Toggle shoji-bar-2's clipboard history on the monitor under the cursor.
+// COMPOSITOR.key.bind("clipboard", "Super+V", () => {
+//   const monitor = HYBRID_WINDOW_MANAGER.getCurrentMonitorName();
+//   COMPOSITOR.process.spawn({
+//     command: ["ags", "request", "-i", "ags", "clipboard", "toggle", monitor],
+//   });
+// });
+
 COMPOSITOR.key.bind("toggle-tiling-mode", "Super+S", () => {
   HYBRID_WINDOW_MANAGER.toggleCurrentWorkspaceTiling();
   scheduleWorkspaceBroadcast();
 });
-COMPOSITOR.key.bind("close-focused-window", "Super+Q", () => {
+COMPOSITOR.key.bind("close-focused-window", "Super+W", () => {
   HYBRID_WINDOW_MANAGER.closeFocusedWindow();
 });
-COMPOSITOR.key.bind("toggle-focused-window-maximize", "Super+M", () => {
+COMPOSITOR.key.bind("toggle-focused-window-maximize", "Super+F", () => {
   HYBRID_WINDOW_MANAGER.toggleFocusedWindowMaximize();
 });
-COMPOSITOR.key.bind("tile-focus-left-quick", "Super+Left", () => {
+COMPOSITOR.key.bind("tile-focus-left-quick", "Super+H", () => {
   HYBRID_WINDOW_MANAGER.focusTile(-1);
 });
-COMPOSITOR.key.bind("tile-focus-right-quick", "Super+Right", () => {
+COMPOSITOR.key.bind("tile-focus-right-quick", "Super+L", () => {
   HYBRID_WINDOW_MANAGER.focusTile(1);
 });
-COMPOSITOR.key.bind("tile-focus-left", "Super+Ctrl+Left", () => {
+COMPOSITOR.key.bind("tile-focus-left", "Super+Ctrl+H", () => {
   HYBRID_WINDOW_MANAGER.focusTile(-1);
 });
-COMPOSITOR.key.bind("tile-focus-right", "Super+Ctrl+Right", () => {
+COMPOSITOR.key.bind("tile-focus-right", "Super+Ctrl+L", () => {
   HYBRID_WINDOW_MANAGER.focusTile(1);
 });
-COMPOSITOR.key.bind("tile-move-left", "Super+Shift+Left", () => {
+COMPOSITOR.key.bind("tile-move-left", "Super+Shift+H", () => {
   HYBRID_WINDOW_MANAGER.moveFocusedTile(-1);
   scheduleWorkspaceBroadcast();
 });
-COMPOSITOR.key.bind("tile-move-right", "Super+Shift+Right", () => {
+COMPOSITOR.key.bind("tile-move-right", "Super+Shift+L", () => {
   HYBRID_WINDOW_MANAGER.moveFocusedTile(1);
   scheduleWorkspaceBroadcast();
 });
-COMPOSITOR.key.bind("window-move-workspace-prev", "Super+Shift+Up", () => {
+COMPOSITOR.key.bind("window-move-workspace-prev", "Super+Shift+K", () => {
   HYBRID_WINDOW_MANAGER.moveFocusedWindowToWorkspace(-1);
   scheduleWorkspaceBroadcast();
 });
-COMPOSITOR.key.bind("window-move-workspace-next", "Super+Shift+Down", () => {
+COMPOSITOR.key.bind("window-move-workspace-next", "Super+Shift+J", () => {
   HYBRID_WINDOW_MANAGER.moveFocusedWindowToWorkspace(1);
   scheduleWorkspaceBroadcast();
 });
-COMPOSITOR.key.bind("workspace-prev", "Super+Ctrl+Up", () => {
+COMPOSITOR.key.bind("workspace-prev", "Super+Ctrl+K", () => {
   HYBRID_WINDOW_MANAGER.switchWorkspace(-1);
   scheduleWorkspaceBroadcast();
 });
-COMPOSITOR.key.bind("workspace-next", "Super+Ctrl+Down", () => {
+COMPOSITOR.key.bind("workspace-next", "Super+Ctrl+J", () => {
   HYBRID_WINDOW_MANAGER.switchWorkspace(1);
   scheduleWorkspaceBroadcast();
 });
@@ -426,45 +456,15 @@ COMPOSITOR.output.configure((context) => {
     mode: "extend",
     resolution: "best",
     position: "auto",
-    scale: 1.8,
-  };
-  display["eDP-2"] = {
-    mode: "extend",
-    resolution: "best",
-    position: "auto",
-    scale: 1.8,
-  };
-  display["HDMI-A-1"] = {
-    mode: "extend",
-    resolution: "best",
-    position: "auto",
-    scale: 1.5,
-  };
-  display["DP-1"] = {
-    mode: "extend",
-    resolution: "best",
-    position: "auto",
-    scale: 1.5,
-  };
-  display["DP-4"] = {
-    mode: "extend",
-    resolution: "best",
-    position: "auto",
-    scale: 1.5,
-  };
-  display["DP-2"] = {
-    mode: "extend",
-    resolution: "best",
-    position: "auto",
-    scale: 1.6,
+    scale: 1,
   };
 
   const isDocked = context.connected.some(
     (output) => output.name === "HDMI-A-1",
   );
+
   if (isDocked) {
     display["eDP-1"] = { mode: "disabled" };
-    display["eDP-2"] = { mode: "disabled" };
   }
 
   return display;
@@ -480,19 +480,8 @@ COMPOSITOR.input.configure((input, _context) => {
       scrollFactor: 0.3,
     },
     pointer: {
-      pointerAccel: 0.0,
+      pointerAccel: 2,
       accelProfile: "flat",
-    },
-    keyboard: {
-      options: "caps:ctrl_modifier",
-      repeatRate: 60,
-      repeatDelay: 250,
-    },
-  };
-
-  input.device["Razer Razer Blade Keyboard"] = {
-    keyboard: {
-      layout: "us",
     },
   };
 });
@@ -694,7 +683,7 @@ function naturalRootRect(window: WaylandWindow): ManagedWindowRect {
 COMPOSITOR.window.composition = (window: WaylandWindow) => {
   const workspaceVisible = window.state[WINDOW_STATE_WORKSPACE_VISIBLE];
   const workspaceOffsetY = window.state[WINDOW_STATE_WORKSPACE_OFFSET_Y];
-  const workspaceOpacity = window.state[WINDOW_STATE_WORKSPACE_OPACITY];
+  // const workspaceOpacity = window.state[WINDOW_STATE_WORKSPACE_OPACITY];
   const tileDragging = window.state[WINDOW_STATE_TILE_DRAGGING];
   const managedRect = computed(() => {
     const rect = window.state[WINDOW_STATE_RECT]();
@@ -705,6 +694,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       height: read(rect.height),
     };
   });
+
   const forceRectSize = computed(
     () => window.isResizable() && !window.isTransient(),
   );
@@ -719,20 +709,10 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
   const borderColor = window.isFocused((focused) =>
     focused ? "#d7ba7d" : "#4f5666",
   );
-  const titlebarBackground = window.isFocused((focused) =>
-    focused ? "#1f243080" : "#2a2f3a80",
-  );
-  const titleColor = window.isFocused((focused) =>
-    focused ? "#f5f7fa" : "#c9d1d9",
-  );
 
-  const titlebarStyle: SSDStyle = {
-    height: TITLEBAR_HEIGHT,
-    paddingX: 8,
-    gap: 8,
-    alignItems: "center",
-    background: titlebarBackground,
-  };
+  const windowOpacity = window.isFocused((focused) => 
+    focused ? 1.0 : 0.8,
+  );
 
   const backgroundShader = compileEffect({
     input: backdropSource(),
@@ -746,53 +726,14 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
           distortion_depth: 0.2,
           distortion_strength: 0.15,
           chromatic_shift_px: 3.0,
-          glass_tint: 0.9,
+          glass_tint: 1,
         },
       }),
     ],
   });
 
-  const titleOnlyShader = compileEffect({
-    input: backdropSource(),
-    capturePadding: 24,
-    invalidate: { kind: "on-source-damage-box", damagePadding: 8 },
-    pipeline: [dualKawaseBlur({ radius: 4, passes: 2 })],
-  });
-
-  const appIcon = (
-    <AppIcon icon={window.icon} style={{ width: 16, height: 16 }} />
-  );
-  const label = (
-    <Label
-      text={window.title}
-      style={{
-        color: titleColor,
-        fontFamily: ["Noto Sans CJK JP", "Noto Color Emoji"],
-        fontSize: 13,
-        fontWeight: 600,
-        flexGrow: 1,
-        flexShrink: 1,
-        minWidth: 0,
-      }}
-    />
-  );
-  const minimizeButton = <MinimizeButton window={window} />;
-  const maximizeButton = <MaximizeButton window={window} />;
-  const closeButton = <CloseButton window={window} />;
-
   var innerComponents = (
     <Box direction="column">
-      <ShaderEffect
-        shader={titleOnlyShader}
-        direction="row"
-        style={titlebarStyle}
-      >
-        {appIcon}
-        {label}
-        {minimizeButton}
-        {maximizeButton}
-        {closeButton}
-      </ShaderEffect>
       <ClientWindow />
     </Box>
   );
@@ -802,13 +743,6 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
   if (TERMINALS.includes(window.appId() ?? "")) {
     innerComponents = (
       <ShaderEffect shader={backgroundShader} direction="column">
-        <Box direction="row" style={titlebarStyle}>
-          {appIcon}
-          {label}
-          {minimizeButton}
-          {maximizeButton}
-          {closeButton}
-        </Box>
         <ClientWindow />
       </ShaderEffect>
     );
@@ -825,7 +759,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
         rect={managedRect}
         zIndex={FULLSCREEN_Z_INDEX}
         visibleOutputs={window.state[WINDOW_STATE_VISIBLE_OUTPUTS]}
-        opacity={workspaceOpacity}
+        opacity={windowOpacity}
         forceRectSize={forceRectSize}
         tiled={tiled}
         idle={inactive}
@@ -846,7 +780,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       rect={managedRect}
       zIndex={HYBRID_WINDOW_MANAGER.getWindowZIndex(window)}
       visibleOutputs={window.state[WINDOW_STATE_VISIBLE_OUTPUTS]}
-      opacity={workspaceOpacity}
+      opacity={windowOpacity}
       forceRectSize={forceRectSize}
       tiled={tiled}
       idle={inactive}
@@ -874,141 +808,5 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
   );
 };
 
-const CloseButton = ({ window }: { window: WaylandWindow }) => {
-  const [hover, setHover] = useState(false);
-
-  const borderColor = hover((hover) => (hover ? "#00000000" : "#F0808030"));
-
-  var icon: CompositionRenderable | null = null;
-  if (hover()) {
-    icon = (
-      <Image
-        src="./assets/x.svg"
-        style={{
-          width: 16,
-          height: 16,
-          position: "absolute",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-      />
-    );
-  }
-
-  return (
-    <Box style={{ position: "relative", flexShrink: 0 }}>
-      <Button
-        onHoverChange={setHover}
-        style={{
-          width: 16,
-          height: 16,
-          borderRadius: 8,
-          background: "#FFFFFF20",
-          border: { px: 1, color: borderColor },
-        }}
-        onClick={window.close}
-      />
-      {icon}
-    </Box>
-  );
-};
-
-const MaximizeButton = ({ window }: { window: WaylandWindow }) => {
-  const [hover, setHover] = useState(false);
-
-  const borderColor = computed(() => {
-    if (!window.isResizable()) {
-      return "#00000000";
-    }
-    return hover() ? "#00000000" : "#00BFFF30";
-  });
-  const shouldHover = computed(() => hover() && window.isResizable());
-
-  var icon: CompositionRenderable | null = null;
-  if (shouldHover()) {
-    const src = window.isMaximized((maximized) => {
-      return maximized ? "./assets/minimize-2.svg" : "./assets/maximize-2.svg";
-    });
-
-    icon = (
-      <Image
-        src={src}
-        style={{
-          width: 16,
-          height: 16,
-          position: "absolute",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-      />
-    );
-  }
-
-  return (
-    <Box style={{ position: "relative", flexShrink: 0 }}>
-      <Button
-        onHoverChange={setHover}
-        style={{
-          width: 16,
-          height: 16,
-          borderRadius: 8,
-          background: "#FFFFFF20",
-          border: { px: 1, color: borderColor },
-        }}
-        onClick={() => {
-          if (!read(window.isResizable)) {
-            return;
-          }
-
-          if (read(window.isMaximized)) {
-            window.unmaximize();
-          } else {
-            window.maximize();
-          }
-        }}
-      />
-      {icon}
-    </Box>
-  );
-};
-
-const MinimizeButton = ({ window }: { window: WaylandWindow }) => {
-  const [hover, setHover] = useState(false);
-
-  const borderColor = hover((hover) => (hover ? "#00000000" : "#F8FF7530"));
-
-  var icon: CompositionRenderable | null = null;
-  if (hover()) {
-    icon = (
-      <Image
-        src="./assets/minus.svg"
-        style={{
-          width: 16,
-          height: 16,
-          position: "absolute",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-      />
-    );
-  }
-
-  return (
-    <Box style={{ position: "relative", flexShrink: 0 }}>
-      <Button
-        onHoverChange={setHover}
-        style={{
-          width: 16,
-          height: 16,
-          borderRadius: 8,
-          background: "#FFFFFF20",
-          border: { px: 1, color: borderColor },
-        }}
-        onClick={() => window.minimize()}
-      />
-      {icon}
-    </Box>
-  );
-};
-
 export default COMPOSITOR;
+

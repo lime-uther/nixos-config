@@ -12,3 +12,4 @@ vec4 shader_main(EffectContext effect) {
     );
     return blurred * mask;
 }
+
