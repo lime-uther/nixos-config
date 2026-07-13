@@ -710,14 +710,14 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
     capturePadding: 24,
     invalidate: { kind: "on-source-damage-box", damagePadding: 8 },
     pipeline: [
-      dualKawaseBlur({ radius: 4, passes: 2 }),
+      // dualKawaseBlur({ radius: 4, passes: 2 }),
       shaderStage(loadShader("./src/liquid-glass.frag"), {
         uniforms: {
           glass_radius_px: 12.0,
           distortion_depth: 0.2,
           distortion_strength: 0.15,
           chromatic_shift_px: 3.0,
-          glass_tint: 1,
+          glass_tint: 0.15,
         },
       }),
     ],
