@@ -30,7 +30,6 @@ import type { CompositionRenderable, ManagedWindowRect } from "shoji_wm/types";
 import { createIpcServer } from "shoji_wm/ipc";
 import {
   HybridWindowManager,
-  TITLEBAR_HEIGHT,
   WINDOW_BORDER_PX,
   WINDOW_STATE_FULLSCREEN,
   WINDOW_STATE_MINIMIZED,
@@ -674,16 +673,16 @@ function naturalRootRect(window: WaylandWindow): ManagedWindowRect {
   const client = window.position;
   return {
     x: client.x - WINDOW_BORDER_PX,
-    y: client.y - TITLEBAR_HEIGHT - WINDOW_BORDER_PX,
+    y: client.y - WINDOW_BORDER_PX,
     width: client.width + WINDOW_BORDER_PX * 2,
-    height: client.height + TITLEBAR_HEIGHT + WINDOW_BORDER_PX * 2,
+    height: client.height + WINDOW_BORDER_PX * 2,
   };
 }
 
 COMPOSITOR.window.composition = (window: WaylandWindow) => {
   const workspaceVisible = window.state[WINDOW_STATE_WORKSPACE_VISIBLE];
   const workspaceOffsetY = window.state[WINDOW_STATE_WORKSPACE_OFFSET_Y];
-  // const workspaceOpacity = window.state[WINDOW_STATE_WORKSPACE_OPACITY];
+  const workspaceOpacity = window.state[WINDOW_STATE_WORKSPACE_OPACITY];
   const tileDragging = window.state[WINDOW_STATE_TILE_DRAGGING];
   const managedRect = computed(() => {
     const rect = window.state[WINDOW_STATE_RECT]();
@@ -707,30 +706,8 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
   );
 
   const borderColor = window.isFocused((focused) =>
-    focused ? "#d7ba7d" : "#4f5666",
+    focused ? "#98ccf9" : "#8c9198",
   );
-
-  const windowOpacity = window.isFocused((focused) => 
-    focused ? 1.0 : 0.8,
-  );
-
-  const backgroundShader = compileEffect({
-    input: backdropSource(),
-    capturePadding: 24,
-    invalidate: { kind: "on-source-damage-box", damagePadding: 8 },
-    pipeline: [
-      dualKawaseBlur({ radius: 4, passes: 2 }),
-      shaderStage(loadShader("./src/liquid-glass.frag"), {
-        uniforms: {
-          glass_radius_px: 10.0,
-          distortion_depth: 0.2,
-          distortion_strength: 0.15,
-          chromatic_shift_px: 3.0,
-          glass_tint: 1,
-        },
-      }),
-    ],
-  });
 
   var innerComponents = (
     <Box direction="column">
@@ -738,36 +715,17 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
     </Box>
   );
 
-  const TERMINALS = ["kitty", "ghostty"];
-
-  if (TERMINALS.includes(window.appId() ?? "")) {
-    innerComponents = (
-      <ShaderEffect shader={backgroundShader} direction="column">
-        <ClientWindow />
-      </ShaderEffect>
-    );
-  }
-
-  // Fullscreen: drop all chrome (titlebar, border, rounded corners) and let
-  // the client surface fill its managed rect edge to edge. The rect is set to
-  // the whole output by onWindowFullscreenRequest. Rendering nothing but the
-  // bare ClientWindow is also what lets the tty backend promote the client
-  // buffer to the primary plane (direct scanout).
   if (window.state[WINDOW_STATE_FULLSCREEN]()) {
     return (
       <ManagedWindow
         rect={managedRect}
         zIndex={FULLSCREEN_Z_INDEX}
         visibleOutputs={window.state[WINDOW_STATE_VISIBLE_OUTPUTS]}
-        opacity={windowOpacity}
+        opacity={workspaceOpacity}
         forceRectSize={forceRectSize}
         tiled={tiled}
         idle={inactive}
         interactive={inactive((value) => !value)}
-        // Permit low-latency tearing for fullscreen windows. The compositor only actually tears
-        // once the window is on the direct-scanout fast path and is committing faster than the
-        // refresh rate (i.e. games), so this is a no-op for ordinary fullscreen apps. Narrow it
-        // per app if desired, e.g. `allowTearing={isGame(window.appId())}`.
         allowTearing={true}
       >
         <ClientWindow />
@@ -780,7 +738,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       rect={managedRect}
       zIndex={HYBRID_WINDOW_MANAGER.getWindowZIndex(window)}
       visibleOutputs={window.state[WINDOW_STATE_VISIBLE_OUTPUTS]}
-      opacity={windowOpacity}
+      opacity={workspaceOpacity}
       forceRectSize={forceRectSize}
       tiled={tiled}
       idle={inactive}
@@ -789,7 +747,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       <WindowBorder
         style={{
           border: { px: WINDOW_BORDER_PX, color: borderColor },
-          borderRadius: 10,
+          borderRadius: 12,
           background: "#10131900",
           padding: 0,
           paddingX: 0,

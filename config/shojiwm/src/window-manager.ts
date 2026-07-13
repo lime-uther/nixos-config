@@ -343,8 +343,7 @@ const MINIMIZE_ANIMATION_CHANNEL = "window.minimize";
 const WORKSPACE_VISUAL_ANIMATION_CHANNEL = "workspace.visual";
 const WORKSPACE_VISUAL_RECT_ANIMATION_CHANNEL = `${WORKSPACE_VISUAL_ANIMATION_CHANNEL}.rect`;
 const WORKSPACE_VISUAL_OPACITY_ANIMATION_CHANNEL = `${WORKSPACE_VISUAL_ANIMATION_CHANNEL}.opacity`;
-export const WINDOW_BORDER_PX = 0;
-export const TITLEBAR_HEIGHT = 30;
+export const WINDOW_BORDER_PX = 2;
 export const MAXIMIZED_WINDOW_PADDING = {
   top: 0,
   right: 0,
@@ -2256,15 +2255,10 @@ export class HybridWindowManager {
     height: number,
   ): ManagedWindowRect {
     const pointer = event.currentPointer;
-    const titlebarCenterY = WINDOW_BORDER_PX + TITLEBAR_HEIGHT / 2;
-    const pointerOffsetY =
-      event.source === "modifier"
-        ? height / 2
-        : Math.min(height / 2, titlebarCenterY);
 
     return {
       x: pointer.x - width / 2,
-      y: pointer.y - pointerOffsetY,
+      y: pointer.y - height / 2,
       width,
       height,
     };
