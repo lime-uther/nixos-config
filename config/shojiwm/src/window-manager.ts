@@ -344,11 +344,12 @@ const WORKSPACE_VISUAL_ANIMATION_CHANNEL = "workspace.visual";
 const WORKSPACE_VISUAL_RECT_ANIMATION_CHANNEL = `${WORKSPACE_VISUAL_ANIMATION_CHANNEL}.rect`;
 const WORKSPACE_VISUAL_OPACITY_ANIMATION_CHANNEL = `${WORKSPACE_VISUAL_ANIMATION_CHANNEL}.opacity`;
 export const WINDOW_BORDER_PX = 2;
+export const TITLEBAR_HEIGHT = 30;
 export const MAXIMIZED_WINDOW_PADDING = {
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
+  top: 8,
+  right: 8,
+  bottom: 8,
+  left: 8,
 };
 
 export class HybridWindowManager {
@@ -1450,6 +1451,15 @@ export class HybridWindowManager {
     return undefined;
   }
 
+  /** Every managed window across all workspaces (debug/IPC use). */
+  public listWindows(): WaylandWindow[] {
+    const windows: WaylandWindow[] = [];
+    for (const workspace of this.workspaces.values()) {
+      windows.push(...workspace.listWindows());
+    }
+    return windows;
+  }
+
   /**
    * Activate window by id (dock-style "go to this window"). Plays a unified
    * sequence: unminimize → switch workspace (if different) → pan within the
@@ -2255,10 +2265,15 @@ export class HybridWindowManager {
     height: number,
   ): ManagedWindowRect {
     const pointer = event.currentPointer;
+    const titlebarCenterY = WINDOW_BORDER_PX + TITLEBAR_HEIGHT / 2;
+    const pointerOffsetY =
+      event.source === "modifier"
+        ? height / 2
+        : Math.min(height / 2, titlebarCenterY);
 
     return {
       x: pointer.x - width / 2,
-      y: pointer.y - height / 2,
+      y: pointer.y - pointerOffsetY,
       width,
       height,
     };

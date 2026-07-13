@@ -1,4 +1,4 @@
-{ config, pkgs, create_symlink, inputs, ... }:
+{ config, pkgs, create_symlink, ... }:
 
 {
 
@@ -11,6 +11,7 @@
     ./features/spotify.nix
     ./features/obs.nix
     ./features/matugen.nix
+    ./features/zen-browser.nix
   ];
 
   dotfiles = "${config.home.homeDirectory}/Documents/nixos-dotfiles/config";

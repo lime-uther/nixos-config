@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -8,9 +8,11 @@
   ];
 
   boot = {
-
     consoleLogLevel = 3;
-    initrd.verbose = false;
+    initrd = {
+      verbose = false;
+      systemd.enable = true;
+    };
 
     kernelParams = [ "quiet" ];
 
@@ -23,6 +25,8 @@
     };
 
   };
+
+  systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
 
   time.timeZone = "Asia/Manila";
 

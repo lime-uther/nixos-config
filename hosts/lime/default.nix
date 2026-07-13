@@ -25,13 +25,9 @@
     extraGroups = [ "wheel" ];
   };
 
-  programs.firefox.enable = true;
-
   environment.systemPackages = with pkgs; [
     kitty just wayvnc
   ];
-
-  systemd.services.NetworkManager-wait-online.enable = false;
 
   hardware.graphics = {
     enable = true;
