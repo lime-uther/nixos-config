@@ -711,7 +711,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
     pipeline: [
       // dualKawaseBlur({ radius: 4, passes: 2 }),
       // shaderStage(loadShader("./src/liquid-glass.frag"), {
-      shaderStage(loadShader("./src/new-liquid-glass.frag"), {
+      shaderStage(loadShader("./src/liquid-glass.frag"), {
         uniforms: {
           glass_radius_px: 12.0,
           distortion_depth: 0.2,
