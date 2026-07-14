@@ -39,8 +39,6 @@ vec4 shader_main(EffectContext effect) {
     vec2 glassCoord = fragCoord - glassCenter;
 
     float size = max(min(glassSize.x, glassSize.y), 1.0);
-    // Keep squared values inside mediump range. Some drivers evaluate length()
-    // with 16-bit intermediates while others silently promote them.
     float sdfScale = max(max(glassSize.x, glassSize.y), 1.0);
     float inversedSDF = -sdf(
         glassCoord / sdfScale,
@@ -54,30 +52,15 @@ vec4 shader_main(EffectContext effect) {
 
     vec2 normalizedGlassCoord = safeNormalize(glassCoord);
     float distFromCenter = 1.0 - clamp(inversedSDF / max(distortion_depth, 0.0001), 0.0, 1.0);
-    float distortion = 1.0 - sqrt(max(1.0 - pow(distFromCenter, 2.0), 0.0));
-    vec2 offset = distortion * normalizedGlassCoord * glassSize * 0.5 * distortion_strength;
-    vec2 glassColorCoord = fragCoord - offset;
 
-    float blur_px = 8.0;
-    float iterations = 16.0;
-    vec3 blurred_color = vec3(0.0);
-    float golden_angle = 2.3999532;
+    float distortion = 1.0 - sqrt(max(1.0 - pow(distFromCenter, 2.0), 0.0));
+
+    vec2 offset = distortion * normalizedGlassCoord * glassSize * 0.5 * distortion_strength;
+    vec2 glassColorCoord = fragCoord - offset; 
 
     float edge = smoothstep(0.0, 0.02, inversedSDF);
     vec2 shift = normalizedGlassCoord * edge * chromatic_shift_px;
 
-    // for (float i = 0.0; i < iterations; i++) {
-    //   float r = sqrt(i / iterations) * blur_px;
-    //   float theta = i * golden_angle;
-    //   vec2 blur_offset = vec2(cos(theta), sin(theta)) * r;
-    //   blurred_color += vec3(
-    //     getTextureColorAt(effect, glassColorCoord - shift + blur_offset).r,
-    //     getTextureColorAt(effect, glassColorCoord + blur_offset).g,
-    //     getTextureColorAt(effect, glassColorCoord + shift + blur_offset).b
-    //   );
-    // }
-
-    // vec3 glassColor = (blurred_color / iterations);
     vec3 glassColor = vec3(
         getTextureColorAt(effect, glassColorCoord - shift).r,
         getTextureColorAt(effect, glassColorCoord).g,
@@ -87,15 +70,18 @@ vec4 shader_main(EffectContext effect) {
     float luma = dot(glassColor, vec3(0.299, 0.587, 0.114));
     glassColor = mix(vec3(luma), glassColor, 1.4);
 
-    float surfaceCurvature = 0.6;
+    float surfaceCurvature = 0.8;
     vec3 normal = normalize(vec3(normalizedGlassCoord * distFromCenter * surfaceCurvature, 1.0));
 
-    vec3 lightDir = normalize(vec3(-0.4, 0.6, 0.7));
-    float shininess = 40.0;
-    float specular = pow(max(dot(normal, lightDir), 0.0), shininess) * distortion_strength * 2.5;
+    vec3 lightDir = normalize(vec3(-0.5, -0.8, 0.6)); 
 
-    glassColor += vec3(specular * 0.6);
+    float shininess = 60.0;
+    float specular = pow(max(dot(normal, lightDir), 0.0), shininess) * distortion_strength * 2.0;
+
+    float rimPower = pow(distFromCenter, 2.0);
+    vec3 vibrantEdge = glassColor * 2.5; 
+
+    glassColor = mix(glassColor, vibrantEdge, rimPower * 0.6) + vec3(specular);
 
     return vec4(glassColor, 1.0);
 }
-
