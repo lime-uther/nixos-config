@@ -101,8 +101,6 @@
         "home-manager": "home-manager",
         "matugen": "matugen",
         "nixpkgs": "nixpkgs",
-        "shojiwm": "shojiwm",
-        "xwayland-satellite-shojiwm": "xwayland-satellite-shojiwm",
         "zen-browser": "zen-browser"
       }
     },
@@ -127,47 +125,6 @@
         "type": "github"
       }
     },
-    "rust-overlay_2": {
-      "inputs": {
-        "nixpkgs": [
-          "xwayland-satellite-shojiwm",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1769222645,
-        "narHash": "sha256-gu6oZ86zLudBZMq8LL1qdtYt/S69GV5keQVXdvBrVSU=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "22da29e7f3d8cff75009cbbcf992c7cb66920cfd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "shojiwm": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1784030260,
-        "narHash": "sha256-ZYYtLJ4mgqgVPEdxr7nLQcDPxcssg2XSKs9RFRVS3pM=",
-        "owner": "bea4dev",
-        "repo": "ShojiWM",
-        "rev": "782408ee6dac3c6872e210e671ec5dbc92bc5ca9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bea4dev",
-        "repo": "ShojiWM",
-        "type": "github"
-      }
-    },
     "systems": {
       "locked": {
         "lastModified": 1689347949,
@@ -180,28 +137,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default-linux",
-        "type": "github"
-      }
-    },
-    "xwayland-satellite-shojiwm": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay_2"
-      },
-      "locked": {
-        "lastModified": 1782133223,
-        "narHash": "sha256-tOYmCg8qCZn4s85347iWwz0XecsI3vIqMeQLoJHBbKs=",
-        "owner": "bea4dev",
-        "repo": "xwayland-satellite",
-        "rev": "d81f90804dbd3c9dde4b5f0035dd05c56b51de97",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bea4dev",
-        "ref": "shojiwm",
-        "repo": "xwayland-satellite",
         "type": "github"
       }
     },
