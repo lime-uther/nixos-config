@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 
 {
 
@@ -8,6 +8,7 @@
 
   programs.shojiwm = {
     enable = true;
+    xwaylandSatellite.package = inputs.xwayland-satellite-shojiwm.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
 }

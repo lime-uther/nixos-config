@@ -137,7 +137,7 @@ const WORKSPACE_KINETIC_SCROLL_FALLBACK_REFRESH_RATE = 120;
 const TILE_DRAG_WORKSPACE_EDGE_PX = 80;
 const TILE_DRAG_WORKSPACE_SWITCH_INTERVAL_MS = 420;
 const TILE_GAP = 12;
-const TILE_MARGIN = 12;
+const TILE_MARGIN = 0;
 const TILE_WIDTH_RATIO = 0.5;
 const TILE_MIN_WIDTH = 240;
 const MANAGED_WINDOW_ONLY_REBUILD_SUPPRESSION = {
@@ -403,30 +403,29 @@ export class HybridWindowManager {
     this.syncWorkspaces();
   }
 
-  public configureWorkspaceGestureSpeed(
-    config: WorkspaceGestureSpeedConfig,
-  ): void {
-    const workspaceScrollFactor = sanitizeGestureSpeedFactor(
-      config.workspaceScrollFactor,
-      DEFAULT_WORKSPACE_GESTURE_SPEED.workspaceScrollFactor,
-    );
-    const workspaceSwitchFactor = sanitizeGestureSpeedFactor(
-      config.workspaceSwitchFactor,
-      DEFAULT_WORKSPACE_GESTURE_SPEED.workspaceSwitchFactor,
-    );
-    this.workspaceGestureSpeed = {
-      workspaceScrollFactor,
-      workspaceScrollKineticFactor: sanitizeGestureSpeedFactor(
-        config.workspaceScrollKineticFactor,
-        workspaceScrollFactor,
-      ),
-      workspaceSwitchFactor,
-      workspaceSwitchVelocityFactor: sanitizeGestureSpeedFactor(
-        config.workspaceSwitchVelocityFactor,
-        workspaceSwitchFactor,
-      ),
-    };
-  }
+  // public configureWorkspaceGestureSpeed(
+  //   config: WorkspaceGestureSpeedConfig,
+  // ): void {
+  //   const workspaceScrollFactor = sanitizeGestureSpeedFactor(
+  //     config.workspaceScrollFactor,
+  //     DEFAULT_WORKSPACE_GESTURE_SPEED.workspaceScrollFactor,
+  //   );
+  //   const workspaceSwitchFactor = sanitizeGestureSpeedFactor(
+  //     config.workspaceSwitchFactor,
+  //     DEFAULT_WORKSPACE_GESTURE_SPEED.workspaceSwitchFactor,
+  //   this.workspaceGestureSpeed = {
+  //     workspaceScrollFactor,
+  //     workspaceScrollKineticFactor: sanitizeGestureSpeedFactor(
+  //       config.workspaceScrollKineticFactor,
+  //       workspaceScrollFactor,
+  //     ),
+  //     workspaceSwitchFactor,
+  //     workspaceSwitchVelocityFactor: sanitizeGestureSpeedFactor(
+  //       config.workspaceSwitchVelocityFactor,
+  //       workspaceSwitchFactor,
+  //     ),
+  //   };
+  // }
 
   public onPointerMove(event: PointerMoveEvent) {
     this.syncWorkspaces();
@@ -2057,8 +2056,10 @@ export class HybridWindowManager {
   private constrainResizeRect(event: WindowResizeEvent): ManagedWindowRect {
     const constraints = event.window.sizeConstraints();
     const extra = this.clientToRootSizeExtra(event.window);
-    const minWidth = Math.max(1, constraints.min?.width ?? 1) + extra.width;
-    const minHeight = Math.max(1, constraints.min?.height ?? 1) + extra.height;
+
+    const minWidth = Math.max(1, constraints.min?.width ?? 64) + extra.width;
+    const minHeight = Math.max(1, constraints.min?.height ?? 64) + extra.height;
+
     const maxWidth = constrainedMax(constraints, "width", extra.width);
     const maxHeight = constrainedMax(constraints, "height", extra.height);
 

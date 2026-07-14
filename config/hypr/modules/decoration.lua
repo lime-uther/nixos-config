@@ -6,15 +6,15 @@ hl.config({
   general = {
     gaps_in     =  5,
     gaps_out    =  10,
-    border_size =  0,
+    border_size =  2,
 
     col = {
-      active_border   = "#394956",
+      active_border   = "#98ccf9",
       inactive_border = "#394956",
     },
 
     resize_on_border = false,
-    allow_tearing    = false,
+    allow_tearing    = true,
 
     layout            = "dwindle",
     no_focus_fallback =      true,
@@ -30,7 +30,7 @@ hl.config({
     shadow = { enabled = false },
 
     blur = {
-      enabled   =  true,
+      enabled   =  false,
       size      =    20,
       passes    =     3,
       vibrancy  = .2696,

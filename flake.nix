@@ -11,7 +11,10 @@
 
     shojiwm = {
       url = "github:bea4dev/ShojiWM";
-      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    xwayland-satellite-shojiwm = {
+      url = "github:bea4dev/xwayland-satellite/shojiwm";
     };
 
     zen-browser = {
