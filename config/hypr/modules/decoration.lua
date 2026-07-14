@@ -8,12 +8,7 @@ hl.config({
     gaps_out    =  10,
     border_size =  2,
 
-    col = {
-      active_border   = "#98ccf9",
-      inactive_border = "#394956",
-    },
-
-    resize_on_border = false,
+    resize_on_border = true,
     allow_tearing    = true,
 
     layout            = "dwindle",
@@ -21,26 +16,14 @@ hl.config({
   },
 
   decoration = {
-    rounding       = 15,
+    rounding       = 12,
     rounding_power =  2,
 
-    active_opacity   = 1.0,
-    inactive_opacity = 0.85,
-
     shadow = { enabled = false },
-
-    blur = {
-      enabled   =  false,
-      size      =    20,
-      passes    =     3,
-      vibrancy  = .2696,
-      noise     =     0,
-      xray      =  true
-    },
+    blur = { enabled = false, },
   },
 
   animations = {
     enabled = true,
   },
 })
-

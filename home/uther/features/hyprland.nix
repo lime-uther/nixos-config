@@ -15,6 +15,7 @@
 
     rofi
     awww
+    yazi
   ];
 
 }

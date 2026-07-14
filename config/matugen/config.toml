@@ -11,3 +11,13 @@ command = "awww img --transition-type wipe {{ image }}"
 [templates.quickshell]
 input_path = 'templates/quickshell.qml'
 output_path = 'test/Colors.qml'
+
+[templates.kitty]
+input_path = 'templates/kitty.conf'
+output_path = '~/.config/kitty/themes/colors.conf'
+post_hook = 'pkill -SIGUSR1 kitty'
+
+[templates.hyprland]
+input_path = 'templates/hyprland.lua'
+output_path = '~/.config/hypr/modules/colors.lua'
+post_hook = 'hyprctl reload'

@@ -18,3 +18,4 @@ require('modules.animations' )
 require('modules.keybindings')
 require('modules.rules'      )
 
+pcall(require, 'modules.colors')
