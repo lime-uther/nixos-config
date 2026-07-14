@@ -6,7 +6,7 @@
 
   home.activation.linkShojiNodeModules = lib.hm.dag.entryAfter ["writeBoundary"] ''
     mkdir -p "${config.dotfiles}/shojiwm/node_modules/"
-    ln -sfn "${inputs.shojiwm.packages.${pkgs.system}.default}/lib/shojiwm/node_modules/shoji_wm" "${config.dotfiles}/shojiwm/node_modules/shoji_wm"
+    ln -sfn "${inputs.shojiwm.packages.${pkgs.stdenv.hostPlatform.system}.default}/lib/shojiwm/node_modules/shoji_wm" "${config.dotfiles}/shojiwm/node_modules/shoji_wm"
   '';
 
   home.packages = with pkgs; [
