@@ -1,8 +1,7 @@
 {
   inputs = {
 
-    nixpkgs.url = "github:NixOs/nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "github:NixOs/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOs/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -11,16 +10,18 @@
 
     shojiwm = {
       url = "github:bea4dev/ShojiWM";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xwayland-satellite-shojiwm = {
       url = "github:bea4dev/xwayland-satellite/shojiwm";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
+        nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
       };
     };
@@ -37,7 +38,7 @@
 
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, ... }:
   let
     forEachSystem = nixpkgs.lib.genAttrs [
       "x86_64-linux"
@@ -63,7 +64,6 @@
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = {
           inherit (self) inputs outputs;
-          unstable = nixpkgs-unstable.legacyPackages.${system};
         };
         modules = [
           ./home/uther/${host}.nix

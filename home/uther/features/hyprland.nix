@@ -1,4 +1,4 @@
-{ config, pkgs, unstable, create_symlink, ... }:
+{ config, pkgs, create_symlink, ... }:
 
 {
 
@@ -15,7 +15,6 @@
 
     rofi
     awww
-    unstable.yazi
   ];
 
 }

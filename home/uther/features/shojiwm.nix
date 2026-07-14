@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, unstable, create_symlink, ... }:
+{ config, lib, pkgs, create_symlink, osConfig, ... }:
 
 {
 
@@ -6,7 +6,7 @@
 
   home.activation.linkShojiNodeModules = lib.hm.dag.entryAfter ["writeBoundary"] ''
     mkdir -p "${config.dotfiles}/shojiwm/node_modules/"
-    ln -sfn "${inputs.shojiwm.packages.${pkgs.stdenv.hostPlatform.system}.default}/lib/shojiwm/node_modules/shoji_wm" "${config.dotfiles}/shojiwm/node_modules/shoji_wm"
+    ln -sfn "${osConfig.programs.shojiwm.package}/lib/shojiwm/node_modules/shoji_wm" "${config.dotfiles}/shojiwm/node_modules/shoji_wm"
   '';
 
   home.packages = with pkgs; [
@@ -20,7 +20,7 @@
 
     rofi
     awww
-    unstable.yazi
+    yazi
   ];
 
 }
