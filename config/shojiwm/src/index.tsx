@@ -351,7 +351,6 @@ COMPOSITOR.key.bind("brightness_up", "XF86MonBrightnessUp", () => {
 COMPOSITOR.key.bind("brightness_down", "XF86MonBrightnessDown", () => {
   COMPOSITOR.process.spawn({ command: "brightnessctl -e4 -n2 set 5%-" });
 });
-
 COMPOSITOR.key.bind("next", "XF86AudioNext", () => {
   COMPOSITOR.process.spawn({ command: "playerctl next" });
 });
@@ -496,7 +495,7 @@ COMPOSITOR.effect.background_effect = compileEffect({
   input: backdropSource(),
   capturePadding: 24,
   invalidate: { kind: "on-source-damage-box", damagePadding: 8 },
-  pipeline: [dualKawaseBlur({ radius: 4, passes: 2 })],
+  pipeline: [dualKawaseBlur({ radius: 12, passes: 2 })],
 });
 
 const LAYER_BLUR_MASK = compileLayerEffect({
@@ -508,7 +507,7 @@ const LAYER_BLUR_MASK = compileLayerEffect({
   // finish/display passes instead of being forced opaque.
   alpha: "preserve",
   pipeline: [
-    dualKawaseBlur({ radius: 4, passes: 2 }),
+    dualKawaseBlur({ radius: 12, passes: 2 }),
     shaderStage(loadShader("./src/layer-blur-mask.frag"), {
       textures: {
         layer_mask: layerSource(),
@@ -540,7 +539,7 @@ const POPUP_BLUR = compilePopupEffect({
   // finish/display passes instead of being forced opaque.
   alpha: "preserve",
   pipeline: [
-    dualKawaseBlur({ radius: 4, passes: 2 }),
+    dualKawaseBlur({ radius: 12, passes: 2 }),
     shaderStage(loadShader("./src/layer-blur-mask.frag"), {
       textures: {
         layer_mask: popupSource(),
@@ -711,13 +710,14 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
     invalidate: { kind: "on-source-damage-box", damagePadding: 8 },
     pipeline: [
       // dualKawaseBlur({ radius: 4, passes: 2 }),
-      shaderStage(loadShader("./src/liquid-glass.frag"), {
+      // shaderStage(loadShader("./src/liquid-glass.frag"), {
+      shaderStage(loadShader("./src/new-liquid-glass.frag"), {
         uniforms: {
           glass_radius_px: 12.0,
           distortion_depth: 0.2,
           distortion_strength: 0.15,
           chromatic_shift_px: 3.0,
-          glass_tint: 0.15,
+          glass_tint: 1,
         },
       }),
     ],
