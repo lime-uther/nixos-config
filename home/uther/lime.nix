@@ -9,7 +9,7 @@
     ./features/pokefetch.nix
     ./features/spotify.nix
     ./features/obs.nix
-    ./features/firefox.nix
+    ./features/zen-browser.nix
   ];
 
   dotfiles = "${config.home.homeDirectory}/Projects/nixos-dotfiles/config";

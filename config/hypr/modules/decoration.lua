@@ -9,7 +9,7 @@ hl.config({
     border_size =  3,
 
     col = {
-      active_border   = "#b9bb26",
+      active_border   = "#ebdbb2",
       inactive_border = "#928374",
     },
 
