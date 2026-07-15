@@ -10,7 +10,7 @@
     ./features/spotify.nix
     ./features/obs.nix
     ./features/matugen.nix
-    ./features/zen-browser.nix
+    ./features/firefox.nix
   ];
 
   dotfiles = "${config.home.homeDirectory}/Documents/nixos-dotfiles/config";
