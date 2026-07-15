@@ -26,8 +26,24 @@ keymap("n", "<C-l>", ":wincmd l<CR>")
 keymap("n", "grd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 
 keymap("n", "<leader>th", function()
-  vim.wo.cursorline = not vim.wo.cursorline
   vim.wo.colorcolumn = vim.wo.colorcolumn == "" and "80" or ""
+
+  print(vim.g.terminal_color_0)
+  print(vim.g.terminal_color_1)
+  print(vim.g.terminal_color_2)
+  print(vim.g.terminal_color_3)
+  print(vim.g.terminal_color_4)
+  print(vim.g.terminal_color_5)
+  print(vim.g.terminal_color_6)
+  print(vim.g.terminal_color_7)
+  print(vim.g.terminal_color_8)
+  print(vim.g.terminal_color_9)
+  print(vim.g.terminal_color_10)
+  print(vim.g.terminal_color_11)
+  print(vim.g.terminal_color_12)
+  print(vim.g.terminal_color_13)
+  print(vim.g.terminal_color_14)
+  print(vim.g.terminal_color_15)
 end)
 
 vim.keymap.set("n", "<leader>cd", function()

@@ -6,7 +6,12 @@ hl.config({
   general = {
     gaps_in     =  5,
     gaps_out    =  10,
-    border_size =  2,
+    border_size =  3,
+
+    col = {
+      active_border   = "#b9bb26",
+      inactive_border = "#928374",
+    },
 
     resize_on_border = true,
     allow_tearing    = true,
@@ -16,11 +21,10 @@ hl.config({
   },
 
   decoration = {
-    rounding       = 12,
-    rounding_power =  2,
+    rounding       = 0,
 
     shadow = { enabled = false },
-    blur = { enabled = false, },
+    blur = { enabled   =  false, },
   },
 
   animations = {

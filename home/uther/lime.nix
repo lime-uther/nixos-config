@@ -9,11 +9,10 @@
     ./features/pokefetch.nix
     ./features/spotify.nix
     ./features/obs.nix
-    ./features/matugen.nix
     ./features/firefox.nix
   ];
 
-  dotfiles = "${config.home.homeDirectory}/Documents/nixos-dotfiles/config";
+  dotfiles = "${config.home.homeDirectory}/Projects/nixos-dotfiles/config";
 
   xdg.configFile.nvim.source = create_symlink "${config.dotfiles}/nvim";
 
@@ -39,6 +38,7 @@
     gimp
     neovim
     azahar
+    gowall
 
     lua-language-server
     bash-language-server

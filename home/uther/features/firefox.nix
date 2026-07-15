@@ -10,9 +10,8 @@
     profiles = ["default"];
     config = {
       border = {
-        width = "2px";
+        width = "3px";
         transition = "0.2s ease";
-        radius = "12px";
       };
       tabs = {
         horizontal.enable = false;

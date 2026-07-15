@@ -1,7 +1,7 @@
 local HOME = os.getenv("HOME");
 
 local XDG = os.getenv("XDG_CONFIG_HOME") or (HOME .. "/.config")
-local PUBLIC = HOME .. "/Documents/nixos-dotfiles/config/hypr/"
+local PUBLIC = HOME .. "/Projects/nixos-dotfiles/config/hypr/"
 
 
 package.path = package.path
@@ -17,5 +17,3 @@ require('modules.decoration' )
 require('modules.animations' )
 require('modules.keybindings')
 require('modules.rules'      )
-
-pcall(require, 'modules.colors')
