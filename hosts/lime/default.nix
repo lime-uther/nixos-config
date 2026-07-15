@@ -15,7 +15,9 @@
   networking.hostName = "lime-nixos";
   networking.firewall.allowedTCPPorts = [ 5900 ];
 
-  services.getty.autologinUser = "uther";
+  services.getty = {
+    autologinUser = "uther";
+  };
 
   programs.honkers-railway-launcher.enable = true;
 

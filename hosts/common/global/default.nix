@@ -8,13 +8,9 @@
   ];
 
   boot = {
-    consoleLogLevel = 3;
     initrd = {
-      verbose = false;
       systemd.enable = true;
     };
-
-    kernelParams = [ "quiet" ];
 
     loader = {
       systemd-boot = {
@@ -23,7 +19,6 @@
       };
       efi.canTouchEfiVariables = true;
     };
-
   };
 
   systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
