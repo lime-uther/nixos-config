@@ -24,7 +24,7 @@ hl.config({
     rounding = 4,
 
     shadow = { enabled = false },
-    blur = { enabled   =  false, },
+    blur   = { enabled = false, },
   },
 
   animations = {

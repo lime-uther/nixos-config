@@ -24,6 +24,12 @@ hl.window_rule({
     no_blur = true
 })
 
-hl.layer_rule({ match = { namespace = "taskbar" },   blur    = true, ignore_alpha = 0.5, })
-hl.layer_rule({ match = { namespace = "selection" }, no_anim = true,                     })
+hl.layer_rule({ match = { namespace = "selection" }, no_anim = true, })
+
+hl.layer_rule({
+  match = {
+    namespace = "awww-daemon"
+  },
+  animation = "popin",
+})
 

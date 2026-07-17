@@ -1,25 +1,43 @@
-hl.curve("durma",        { type = "bezier", points = { {1, 1},      {1, 1}      } })
-hl.curve("firlat",       { type = "bezier", points = { {0.25, 1},   {0.5, 1}    } })
-hl.curve("firlama",      { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.05} } })
-hl.curve("wind",         { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.0}  } })
-hl.curve("winIn",        { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.01} } })
-hl.curve("winOut",       { type = "bezier", points = { {0.7, 0},    {0.1, 1.0}  } })
-hl.curve("linear",       { type = "bezier", points = { {0.0, 0.0},  {1.0, 1.0}  } })
-hl.curve("liner",        { type = "bezier", points = { {1, 1},      {1, 1}      } })
-hl.curve("almostLinear", { type = "bezier", points = { {0.5, 0.5},  {0.75, 1.0} } })
+local beziers = {
 
-hl.animation({ leaf = "windows",          enabled = true, speed = 10,   bezier = "wind",        style = "slide"         })
-hl.animation({ leaf = "windowsIn",        enabled = true, speed = 10,   bezier = "winIn",       style = "popin 80%"     })
-hl.animation({ leaf = "layersOut",        enabled = true, speed = 4,    bezier = "firlat",      style = "slide bottom"  })
--- hl.animation({ leaf = "layersIn",         enabled = true, speed = 5,    bezier = "firlat",      style = "slide bottom"  })
-hl.animation({ leaf = "layersIn",         enabled = true, speed = 5,    bezier = "winIn",      style = "popin"  })
-hl.animation({ leaf = "windowsIn",        enabled = true, speed = 4,    bezier = "winIn",       style = "slide"         })
-hl.animation({ leaf = "windowsMove",      enabled = true, speed = 4,    bezier = "wind",        style = "slide"         })
-hl.animation({ leaf = "border",           enabled = true, speed = 1,    bezier = "liner"                                })
-hl.animation({ leaf = "borderangle",      enabled = true, speed = 60,   bezier = "durma",       style = "loop"          })
-hl.animation({ leaf = "workspaces",       enabled = true, speed = 5,    bezier = "wind",        style = "slide"         })
-hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 5,    bezier = "wind",        style = "slidefadevert" })
-hl.animation({ leaf = "fadeIn",           enabled = true, speed = 1.73, bezier = "almostLinear"                         })
-hl.animation({ leaf = "fadeOut",          enabled = true, speed = 1.46, bezier = "almostLinear"                         })
-hl.animation({ leaf = "fade",             enabled = true, speed = 3.03, bezier = "almostLinear"                         })
+  { "durma",        { points = { {1.00, 1.00}, {1.00, 1.00} } } },
+  { "firlat",       { points = { {0.25, 1.00}, {0.50, 1.00} } } },
+  { "firlama",      { points = { {0.05, 0.90}, {0.10, 1.05} } } },
+  { "wind",         { points = { {0.05, 0.90}, {0.10, 1.00} } } },
+  { "winIn",        { points = { {0.05, 0.90}, {0.10, 1.01} } } },
+  { "winOut",       { points = { {0.70, 0.00}, {0.10, 1.00} } } },
+  { "linear",       { points = { {0.00, 0.00}, {1.00, 1.00} } } },
+  { "liner",        { points = { {1.00, 1.00}, {1.00, 1.00} } } },
+  { "almostLinear", { points = { {0.50, 0.50}, {0.75, 1.00} } } },
+
+}
+
+local animations = {
+
+  { leaf = "windows"          , speed = 10.0, bezier = "wind"   , style = "slide"         },
+  { leaf = "windowsIn"        , speed = 10.0, bezier = "winIn"  , style = "popin 80%"     },
+  { leaf = "layersOut"        , speed = 4.00, bezier = "firlat" , style = "slide bottom"  },
+  { leaf = "layersIn"         , speed = 4.00, bezier = "firlat" , style = "slide bottom"  },
+  { leaf = "windowsIn"        , speed = 4.00, bezier = "winIn"  , style = "slide"         },
+  { leaf = "windowsMove"      , speed = 4.00, bezier = "wind"   , style = "slide"         },
+  { leaf = "borderangle"      , speed = 60.0, bezier = "durma"  , style = "loop"          },
+  { leaf = "workspaces"       , speed = 5.00, bezier = "wind"   , style = "slide"         },
+  { leaf = "specialWorkspace" , speed = 5.00, bezier = "wind"   , style = "slidefadevert" },
+
+  { leaf = "border"           , speed = 1.00, bezier = "liner"        },
+  { leaf = "fadeIn"           , speed = 1.73, bezier = "almostLinear" },
+  { leaf = "fadeOut"          , speed = 1.46, bezier = "almostLinear" },
+  { leaf = "fade"             , speed = 3.03, bezier = "almostLinear" },
+
+}
+
+for _, bezier in ipairs(beziers) do
+  bezier[2].type = "bezier"
+  hl.curve( bezier[1], bezier[2] )
+end
+
+for _, animation in ipairs(animations) do
+  animation.enabled = true
+  hl.animation(animation)
+end
 
