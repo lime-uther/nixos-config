@@ -12,6 +12,11 @@
 
   ];
 
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = ["uther"];
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+
   networking.hostName = "lime-nixos";
   networking.firewall.allowedTCPPorts = [ 5900 ];
 
