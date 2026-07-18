@@ -33,6 +33,7 @@
     nil
     nixpkgs-fmt
     nodejs
+    yarn
     gcc
     gnumake
     gimp
