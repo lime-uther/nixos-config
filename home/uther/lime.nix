@@ -10,6 +10,7 @@
     ./features/spotify.nix
     ./features/obs.nix
     ./features/zen-browser.nix
+    ./features/quickshell.nix
   ];
 
   dotfiles = "${config.home.homeDirectory}/Projects/nixos-dotfiles/config";
