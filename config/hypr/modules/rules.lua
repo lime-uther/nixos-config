@@ -16,20 +16,26 @@ hl.window_rule({
   no_focus = true,
 })
 
-hl.window_rule({
-    name = "unblur-noclass",
-    match = {
-        tag = "no_class",
-    },
-    no_blur = true
-})
-
-hl.layer_rule({ match = { namespace = "selection" }, no_anim = true, })
-
 hl.layer_rule({
   match = {
     namespace = "awww-daemon"
   },
   animation = "popin",
 })
+
+for _, no_anim
+
+  in pairs({
+    "taskbar",
+    "selection",
+  }) do
+
+  hl.layer_rule({
+    match = {
+      namespace = no_anim
+    },
+    no_anim = true
+  })
+
+end
 

@@ -1,6 +1,6 @@
 import Quickshell
-import Quickshell.Wayland
-import QtQuick
+import qs.components
 
-Scope {
+ShellRoot {
+  TaskBar{}
 }

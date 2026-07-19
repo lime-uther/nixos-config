@@ -115,7 +115,7 @@ hl.on('window.open', function (window)
 
   hl.dispatch(hl.dsp.window.float({ action = "on", window = window }))
   hl.dispatch(hl.dsp.window.resize({ x = 800, y = 600, false, window = window }))
-  hl.dispatch(hl.dsp.window.move({ x = 1920/2 - 800/2, y = 1080/2 - 600/2, false, window = window }))
+  hl.dispatch(hl.dsp.window.move({ x = 1920/2 - 800/2, y = 1080/2 - 600/2 + 25, false, window = window }))
 
 end)
 
