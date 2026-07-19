@@ -5,9 +5,12 @@ _: {
     shellIntegration.enableFishIntegration = true;
 
     settings = {
-      bold_font = "auto";
-      italic_font = "auto";
-      bold_italic_font = "auto";
+
+      font_family      = "JetBrains Mono Regular";
+      bold_font        = "JetBrains Mono Bold";
+      italic_font      = "JetBrains Mono Italic";
+      bold_italic_font = "Mono Bold Italic";
+
       font_size = 10;
 
       cursor_shape = "beam";
@@ -16,15 +19,14 @@ _: {
       shell = "fish";
 
       confirm_os_window_close = 0;
-      background_opacity = 1;
-      window_padding_width = 5;
+      background_opacity      = 1;
+      window_padding_width    = 5;
 
     };
     extraConfig = ''
       background #1d2021
       foreground #d4be98
-
-      cursor #d4be98
+      cursor     #d4be98
 
       selection_background #1d2021
       selection_foreground none
@@ -48,4 +50,14 @@ _: {
     '';
   };
 
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+
+      set fish_greeting #
+
+      set -g fish_key_bindings fish_vi_key_bindings
+    '';
+   };
 }
+

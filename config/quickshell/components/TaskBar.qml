@@ -97,7 +97,7 @@ Scope {
             font {
               family: "JetBrainsMono"
               weight: Font.Black
-              pixelSize: 13
+              pixelSize: 12
             }
           }
         }

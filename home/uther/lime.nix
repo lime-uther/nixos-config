@@ -41,20 +41,12 @@
     neovim
     azahar
     gowall
+    spotify
 
     lua-language-server
     bash-language-server
     typescript-language-server
     qt6.qtdeclarative
   ];
-
-  home.pointerCursor = {
-    enable = true;
-    gtk.enable = true;
-    x11.enable = true;
-    name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
-    size = 24;
-  };
 
 }
