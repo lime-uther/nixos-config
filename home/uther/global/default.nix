@@ -1,4 +1,5 @@
-{ lib, config, pkgs, ... }: {
+{ lib, config, ... }: {
+
   imports = [
     ./tools
     ./home-manager.nix
@@ -15,15 +16,4 @@
     };
   };
 
-  home.pointerCursor = {
-    enable = true;
-
-    name = "Bibata-Modern-Ice";
-    size = 24;
-
-    package = pkgs.bibata-cursors;
-
-    gtk.enable = true;
-    x11.enable = true;
-  };
 }

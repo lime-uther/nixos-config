@@ -7,7 +7,6 @@
     ./features/hyprland.nix
     ./features/kitty.nix
     ./features/pokefetch.nix
-    ./features/spotify.nix
     ./features/obs.nix
     ./features/zen-browser.nix
     ./features/quickshell.nix
