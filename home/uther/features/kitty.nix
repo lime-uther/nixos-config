@@ -11,7 +11,7 @@ _: {
       italic_font      = "JetBrains Mono Italic";
       bold_italic_font = "Mono Bold Italic";
 
-      font_size = 11;
+      font_size = 10;
 
       cursor_shape = "beam";
       cursor_trail = 1;
