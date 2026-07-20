@@ -15,9 +15,8 @@ local beziers = {
 local animations = {
 
   { leaf = "windows"          , speed = 10.0, bezier = "wind"   , style = "slide"         },
-  { leaf = "windowsIn"        , speed = 10.0, bezier = "winIn"  , style = "popin 80%"     },
-  { leaf = "layersOut"        , speed = 4.00, bezier = "firlat" , style = "slide bottom"  },
-  { leaf = "layersIn"         , speed = 4.00, bezier = "firlat" , style = "slide bottom"  },
+  { leaf = "layersOut"        , speed = 10.0, bezier = "wind"   , style = "slide"         },
+  { leaf = "layersIn"         , speed = 4.00, bezier = "winIn"  , style = "slide"         },
   { leaf = "windowsIn"        , speed = 4.00, bezier = "winIn"  , style = "slide"         },
   { leaf = "windowsMove"      , speed = 4.00, bezier = "wind"   , style = "slide"         },
   { leaf = "borderangle"      , speed = 60.0, bezier = "durma"  , style = "loop"          },
