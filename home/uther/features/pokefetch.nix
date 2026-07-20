@@ -89,15 +89,15 @@ in
         { name = "{#34}distro";  type = "os";       format = "{3}";         }
         { name = "{#34}kernel";  type = "kernel";   format = "{2}";         }
         { name = "{#34}uptime";  type = "uptime";   format = "{1}h {2}m";   }
-        { name = "{#34}shell";   type = "shell";                            }
+      # { name = "{#34}shell";   type = "shell";                            }
         { name = "{#34}term";    type = "terminal";                         }
-        { name = "{#34}wm";      type = "wm";       format = "{2}";         }
+      # { name = "{#34}wm";      type = "wm";       format = "{2}";         }
         { name = "{#34}cpu";     type = "cpu";                              }
         { name = "{#34}gpu";     type = "gpu";      format = "{2}";         }
         { name = "{#34}memory";  type = "memory";   format = "{1} / {2}";   }
         { name = "{#34}disk";    type = "disk";     format = "{1} / {2}";   }
-        { name = "{#34}battery"; type = "battery";  format = "{4} [{5}]";   }
-        { name = "{#34}pkgs";    type = "packages";                         }
+      # { name = "{#34}battery"; type = "battery";  format = "{4} [{5}]";   }
+      # { name = "{#34}pkgs";    type = "packages";                         }
         { name = "{#34}network"; type = "localip";                          }
       ] ++ [
         { key = "└─────────┘└{$1}┘"; type = "custom"; }
