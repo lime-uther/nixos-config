@@ -1,8 +1,12 @@
 { config, pkgs, create_symlink, ... }:
 
+let
+  dotfile = "hypr/hyprland.lua";
+in 
+
 {
 
-  home.file.".config/hypr/hyprland.lua".source = create_symlink "${config.dotfiles}/hypr/hyprland.lua";
+  home.file.".config/${dotfile}".source = create_symlink "${config.dotfiles}/${dotfile}";
 
   home.packages = with pkgs; [
     brightnessctl

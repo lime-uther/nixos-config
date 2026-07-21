@@ -1,4 +1,4 @@
-{ config, pkgs, create_symlink, ... }:
+{ config, pkgs, ... }:
 
 {
 
@@ -10,11 +10,12 @@
     ./features/obs.nix
     ./features/zen-browser.nix
     ./features/quickshell.nix
+    ./features/neovim.nix
   ];
 
   dotfiles = "${config.home.homeDirectory}/Projects/nixos-dotfiles/config";
 
-  xdg.configFile.nvim.source = create_symlink "${config.dotfiles}/nvim";
+  # xdg.configFile.nvim.source = create_symlink "${config.dotfiles}/nvim";
 
   programs.bash = {
     enable = true;
@@ -29,23 +30,23 @@
 
   home.packages = with pkgs; [
 
-    ripgrep
-    nil
-    nixpkgs-fmt
-    nodejs
-    yarn
-    gcc
-    gnumake
+    # ripgrep
+    # nil
+    # nixpkgs-fmt
+    # nodejs
+    # yarn
+    # gcc
+    # gnumake
+    # neovim
     gimp
-    neovim
     azahar
     gowall
     spotify
 
-    lua-language-server
-    bash-language-server
-    typescript-language-server
-    qt6.qtdeclarative
+    # lua-language-server
+    # bash-language-server
+    # typescript-language-server
+    # qt6.qtdeclarative
   ];
 
 }

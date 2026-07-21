@@ -14,14 +14,14 @@ local beziers = {
 
 local animations = {
 
-  { leaf = "windows"          , speed = 10.0, bezier = "wind"   , style = "slide"         },
-  { leaf = "layersOut"        , speed = 10.0, bezier = "wind"   , style = "slide"         },
-  { leaf = "layersIn"         , speed = 4.00, bezier = "winIn"  , style = "slide"         },
-  { leaf = "windowsIn"        , speed = 4.00, bezier = "winIn"  , style = "slide"         },
-  { leaf = "windowsMove"      , speed = 4.00, bezier = "wind"   , style = "slide"         },
-  { leaf = "borderangle"      , speed = 60.0, bezier = "durma"  , style = "loop"          },
-  { leaf = "workspaces"       , speed = 5.00, bezier = "wind"   , style = "slide"         },
-  { leaf = "specialWorkspace" , speed = 5.00, bezier = "wind"   , style = "slidefadevert" },
+  { leaf = "windows"          , speed = 10.0, bezier = "wind"  , style = "slide"         },
+  { leaf = "layersOut"        , speed = 10.0, bezier = "wind"  , style = "slide"         },
+  { leaf = "layersIn"         , speed = 4.00, bezier = "winIn" , style = "slide"         },
+  { leaf = "windowsIn"        , speed = 4.00, bezier = "winIn" , style = "slide"         },
+  { leaf = "windowsMove"      , speed = 4.00, bezier = "wind"  , style = "slide"         },
+  { leaf = "borderangle"      , speed = 60.0, bezier = "durma" , style = "loop"          },
+  { leaf = "workspaces"       , speed = 5.00, bezier = "wind"  , style = "slide"         },
+  { leaf = "specialWorkspace" , speed = 5.00, bezier = "wind"  , style = "slidefadevert" },
 
   { leaf = "border"           , speed = 1.00, bezier = "liner"        },
   { leaf = "fadeIn"           , speed = 1.73, bezier = "almostLinear" },

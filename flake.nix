@@ -21,6 +21,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    uther-nvchad-conf = {
+      url = "github:lime-uther/NvChad";
+      flake = false;
+    };
+
+    nix4nvchad = {
+      url = "github:nix-community/nix4nvchad";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nvchad-starter.follows = "uther-nvchad-conf";
+    };
+
   };
 
   outputs = { self, nixpkgs, home-manager, ... }:
