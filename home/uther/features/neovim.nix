@@ -2,7 +2,7 @@
 
 let
   system = pkgs.stdenv.hostPlatform.system;
-  nvchad = inputs.nix4nvchad.packages.${system}.default.override {
+  nvchad = (inputs.nix4nvchad.packages.${system}.default.override {
 
     extraPackages = with pkgs; [
 
@@ -15,9 +15,13 @@ let
       typescript-language-server
       lua-language-server
       vscode-langservers-extracted
+      kdePackages.qtdeclarative
 
     ];
-  };
+
+  }).overrideAttrs (oldAttrs: {
+    dontWrapQtApps = true;
+  });
 in
 
 {
