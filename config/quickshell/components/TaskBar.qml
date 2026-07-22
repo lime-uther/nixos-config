@@ -60,7 +60,7 @@ Scope {
     Rectangle {
       id: border
       anchors.fill: parent
-      color: "#d4be98"
+      color: "#d5c4a1"
     }
 
     Rectangle {
@@ -72,7 +72,7 @@ Scope {
       }
 
       height: parent.height - 1
-      color: "#1d2021"
+      color: "#282828"
 
       RowLayout {
         anchors.fill: parent
@@ -93,7 +93,7 @@ Scope {
           Text {
             anchors.centerIn: parent
             text: `${root.currentDate}  ${root.currentTime}`
-            color: "#d4be98"
+            color: "#d5c4a1"
             font {
               family: "JetBrainsMono"
               weight: Font.Black

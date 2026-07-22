@@ -9,8 +9,8 @@ hl.config({
     border_size =  1,
 
     col = {
-      active_border   = "#ebdbb2",
-      inactive_border = "#504945",
+      active_border   = "#d4c4a1",
+      inactive_border = "#484442",
     },
 
     resize_on_border = true,
@@ -21,7 +21,7 @@ hl.config({
   },
 
   decoration = {
-    rounding = 4,
+    rounding = 0,
 
     shadow = { enabled = false },
     blur   = { enabled = false, },
