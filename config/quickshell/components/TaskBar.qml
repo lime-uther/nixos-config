@@ -61,7 +61,7 @@ Scope {
 
       anchors.fill: parent
 
-      color: "#282828"
+      color: "#1d2021"
 
       RowLayout {
         anchors.fill: parent
@@ -85,7 +85,7 @@ Scope {
             color: "#d5c4a1"
             font {
               family: "JetBrains Mono"
-              // weight: Font.Black
+              weight: Font.Medium
               pixelSize: 12
             }
           }

@@ -6,6 +6,10 @@ in
 
 {
 
+  imports = [
+    ./rofi.nix
+  ];
+
   home.file.".config/${dotfile}".source = create_symlink "${config.dotfiles}/${dotfile}";
 
   home.packages = with pkgs; [
@@ -17,7 +21,6 @@ in
     swappy
     wl-clipboard
 
-    rofi
     awww
     yazi
   ];
