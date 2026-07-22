@@ -58,20 +58,9 @@ Scope {
     }
 
     Rectangle {
-      id: border
+
       anchors.fill: parent
-      color: "#d5c4a1"
-    }
 
-    Rectangle {
-
-      anchors {
-        top: parent.top
-        left: parent.left
-        right: parent.right
-      }
-
-      height: parent.height - 1
       color: "#282828"
 
       RowLayout {
@@ -95,8 +84,8 @@ Scope {
             text: `${root.currentDate}  ${root.currentTime}`
             color: "#d5c4a1"
             font {
-              family: "JetBrainsMono"
-              weight: Font.Black
+              family: "JetBrains Mono"
+              // weight: Font.Black
               pixelSize: 12
             }
           }

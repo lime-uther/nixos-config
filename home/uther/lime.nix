@@ -15,8 +15,6 @@
 
   dotfiles = "${config.home.homeDirectory}/Projects/nixos-dotfiles/config";
 
-  # xdg.configFile.nvim.source = create_symlink "${config.dotfiles}/nvim";
-
   programs.bash = {
     enable = true;
     profileExtra = ''
@@ -29,24 +27,10 @@
   };
 
   home.packages = with pkgs; [
-
-    # ripgrep
-    # nil
-    # nixpkgs-fmt
-    # nodejs
-    # yarn
-    # gcc
-    # gnumake
-    # neovim
     gimp
     azahar
     gowall
     spotify
-
-    # lua-language-server
-    # bash-language-server
-    # typescript-language-server
-    # qt6.qtdeclarative
   ];
 
 }

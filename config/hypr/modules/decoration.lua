@@ -10,7 +10,7 @@ hl.config({
 
     col = {
       active_border   = "#d4c4a1",
-      inactive_border = "#484442",
+      inactive_border = "#282828",
     },
 
     resize_on_border = true,
