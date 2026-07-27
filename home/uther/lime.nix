@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
 
@@ -31,6 +31,8 @@
     azahar
     gowall
     spotify
+
+    inputs.prismlauncher.${system}.packages.default
   ];
 
 }

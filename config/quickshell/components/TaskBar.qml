@@ -15,7 +15,7 @@ Scope {
     const month = [
       "Jan", "Feb", "Mar", "Apr", "May", "Jun",
       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    ][Qt.formatDateTime(new Date(), "M")];
+    ][Qt.formatDateTime(new Date(), "M") - 1];
 
     const day = Qt.formatDateTime(new Date(), "dd");
 
@@ -61,7 +61,7 @@ Scope {
 
       anchors.fill: parent
 
-      color: "#1d2021"
+      color: "#232323"
 
       RowLayout {
         anchors.fill: parent
@@ -85,7 +85,7 @@ Scope {
             color: "#d5c4a1"
             font {
               family: "JetBrains Mono"
-              weight: Font.Medium
+              weight: Font.Black
               pixelSize: 12
             }
           }

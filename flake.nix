@@ -32,6 +32,10 @@
       inputs.nvchad-starter.follows = "uther-nvchad-conf";
     };
 
+    prismlauncher = {
+      url = "github:Diegiwg/PrismLauncher-Cracked";
+    };
+
   };
 
   outputs = { self, nixpkgs, home-manager, ... }:

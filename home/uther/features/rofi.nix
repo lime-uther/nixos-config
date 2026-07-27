@@ -23,7 +23,7 @@
       "*" = {
           font                  = "JetBrainsMono 10";
           accent                = mkLiteral "#b8bb25";
-          bg-primary            = mkLiteral "#1d2021";
+          bg-primary            = mkLiteral "#232323";
           bg-secondary          = mkLiteral "#2e2e2e";
           fg                    = mkLiteral "#d5c4a1";
           fg-secondary          = mkLiteral "#423e3c";
