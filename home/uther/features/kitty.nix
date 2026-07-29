@@ -23,29 +23,29 @@ _: {
 
     };
     extraConfig = ''
-      background #282828
-      foreground #d5c4a1
-      cursor     #d5c4a1
+      background #1e1d2d
+      foreground #bfc6d4
+      cursor     #bfc6d4
 
-      selection_background #423e3c
+      selection_background #252434
       selection_foreground none
 
-      color0  #3c3836
-      color8  #484442
-      color1  #fb4934
-      color9  #fb4934
-      color2  #b8bb26
-      color10 #b8bb26
-      color3  #fabd2f
-      color11 #fabd2f
-      color4  #83a598
-      color12 #83a598
-      color5  #d3869b
-      color13 #d3869b
-      color6  #8ec07c
-      color14 #8ec07c
-      color7  #d5c4a1
-      color15 #fbf1c7
+      color0  #282737
+      color8  #383747
+      color1  #F38BA8
+      color9  #F38BA8
+      color2  #ABE9B3
+      color10 #ABE9B3
+      color3  #FAE3B0
+      color11 #FAE3B0
+      color4  #89B4FA
+      color12 #89B4FA
+      color5  #CBA6F7
+      color13 #CBA6F7
+      color6  #89DCEB
+      color14 #89DCEB
+      color7  #D9E0EE
+      color15 #bfc6d4
     '';
   };
 

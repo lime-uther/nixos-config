@@ -22,12 +22,12 @@
 
       "*" = {
           font                  = "JetBrainsMono 10";
-          accent                = mkLiteral "#b8bb25";
-          bg-primary            = mkLiteral "#232323";
-          bg-secondary          = mkLiteral "#2e2e2e";
-          fg                    = mkLiteral "#d5c4a1";
-          fg-secondary          = mkLiteral "#423e3c";
-          error                 = mkLiteral "#fb4934";
+          accent                = mkLiteral "#bfc5d4";
+          bg-primary            = mkLiteral "#1e1d2d";
+          bg-secondary          = mkLiteral "#191828";
+          fg                    = mkLiteral "#bfc6d4";
+          fg-secondary          = mkLiteral "#fae3b0";
+          error                 = mkLiteral "#f38ba8";
           rounding              = mkLiteral "4px";
       };
 

@@ -61,7 +61,7 @@ Scope {
 
       anchors.fill: parent
 
-      color: "#232323"
+      color: "#1e1d2d"
 
       RowLayout {
         anchors.fill: parent
@@ -82,7 +82,7 @@ Scope {
           Text {
             anchors.centerIn: parent
             text: `${root.currentDate}  ${root.currentTime}`
-            color: "#d5c4a1"
+            color: "#bfc6d4"
             font {
               family: "JetBrains Mono"
               weight: Font.Black
