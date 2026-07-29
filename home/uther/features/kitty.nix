@@ -14,7 +14,6 @@ _: {
       font_size = 10;
 
       cursor_shape = "beam";
-      cursor_trail = 1;
 
       shell = "fish";
 

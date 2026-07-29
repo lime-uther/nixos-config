@@ -32,7 +32,8 @@
     gowall
     spotify
 
-    inputs.prismlauncher.${system}.packages.default
+    inputs.prismlauncher.packages.${stdenv.hostPlatform.system}.default
+    jdk25
   ];
 
 }
