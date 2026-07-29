@@ -61,7 +61,7 @@ Scope {
 
       anchors.fill: parent
 
-      color: "#2e2e2e"
+      color: "#232323"
 
       RowLayout {
         anchors.fill: parent
