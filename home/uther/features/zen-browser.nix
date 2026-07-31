@@ -49,9 +49,9 @@
             type = "gradient";
             colors = [
               {
-                red = 29;
-                green = 32;
-                blue = 33;
+                red = 30;
+                green = 29;
+                blue = 45;
                 algorithm = "floating";
                 type = "explicit-lightness";
                 lightness = 50;

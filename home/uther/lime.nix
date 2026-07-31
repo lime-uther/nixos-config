@@ -11,6 +11,7 @@
     ./features/zen-browser.nix
     ./features/quickshell.nix
     ./features/neovim.nix
+    ./features/dolphin.nix
   ];
 
   dotfiles = "${config.home.homeDirectory}/Projects/nixos-dotfiles/config";

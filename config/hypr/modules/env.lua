@@ -2,12 +2,6 @@
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
 
--- Cursors (You already had these, which is perfect)
-hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Ice")
-hl.env("XCURSOR_THEME",    "Bibata-Modern-Ice")
-hl.env("XCURSOR_SIZE",    "24")
-hl.env("HYPRCURSOR_SIZE", "24")
-
 -- XDG Specifications (Crucial for screen sharing and file portals)
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE",    "wayland" )

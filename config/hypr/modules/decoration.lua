@@ -4,8 +4,8 @@
 
 hl.config({
   general = {
-    gaps_in     =  0,
-    gaps_out    =  0,
+    gaps_in     =  5,
+    gaps_out    = 10,
     border_size =  2,
 
     col = {
@@ -27,7 +27,6 @@ hl.config({
     blur   = { enabled = false },
   },
 
-  animations = {
-    enabled = false,
-  },
+  animations = { enabled = true, },
 })
+
