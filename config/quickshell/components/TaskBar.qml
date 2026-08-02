@@ -2,47 +2,11 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
+import qs.components.taskbar
+
 
 Scope {
   id: root
-
-  function getTime() {
-    return Qt.formatDateTime(new Date(), "hh:mm AP");
-  }
-
-  function getDate() { 
-
-    const month = [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    ][Qt.formatDateTime(new Date(), "M") - 1];
-
-    const day = Qt.formatDateTime(new Date(), "dd");
-
-    return `${month} ${day}`;
-  }
-
-  property string currentDate: getDate()
-  property string currentTime: getTime()
-
-
-  Timer {
-    interval: 1000
-    running: true
-    repeat: true
-    onTriggered: {
-      root.currentTime = root.getTime()
-    }
-  }
-
-  Timer {
-    interval: 60000
-    running: true
-    repeat: true
-    onTriggered: {
-      root.currentDate = root.getDate()
-    }
-  }
 
   WlrLayershell {
     namespace: "taskbar"
@@ -66,37 +30,9 @@ Scope {
       RowLayout {
         anchors.fill: parent
 
-        Rectangle {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-          Layout.preferredWidth: 1
-          color: "transparent"
-        }
-
-        Rectangle {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-          Layout.preferredWidth: 1
-          color: "transparent"
-
-          Text {
-            anchors.centerIn: parent
-            text: `${root.currentDate}  ${root.currentTime}`
-            color: "#bfc6d4"
-            font {
-              family: "JetBrains Mono"
-              weight: Font.Black
-              pixelSize: 12
-            }
-          }
-        }
-
-        Rectangle {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-          Layout.preferredWidth: 1
-          color: "transparent"
-        }
+        BotSection{}
+        CenSection{}
+        TopSection{}
 
       }
     }
