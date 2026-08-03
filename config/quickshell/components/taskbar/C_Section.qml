@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 
@@ -8,6 +10,8 @@ Rectangle {
   Layout.fillHeight: true
   Layout.preferredWidth: 1
   color: "transparent"
+
+  required property int borderHeight
 
   property string currentDate: getDate()
   property string currentTime: getTime()
@@ -47,7 +51,6 @@ Rectangle {
   }
 
   Text {
-    anchors.centerIn: parent
     text: `${root.currentDate}  ${root.currentTime}`
     color: "#bfc6d4"
     font {
@@ -55,6 +58,9 @@ Rectangle {
       weight: Font.Black
       pixelSize: 12
     }
+
+    y: ( parent.height - height - root.borderHeight )/2
+    x: ( parent.width - width )/2
   }
 }
 

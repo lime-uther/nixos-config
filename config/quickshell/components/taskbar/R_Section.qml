@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 
@@ -6,6 +8,8 @@ Rectangle {
   Layout.fillHeight: true
   Layout.preferredWidth: 1
   color: "transparent"
+
+  required property int borderHeight
 
 }
 

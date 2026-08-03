@@ -12,8 +12,8 @@ Scope {
     namespace: "taskbar"
 
     color: "transparent"
-    height: 25
-    width: 25
+    height: 27
+    width: 27
 
     anchors {
       top: true
@@ -23,18 +23,28 @@ Scope {
 
     Rectangle {
 
+      Rectangle {
+        id: border
+        anchors.bottom: parent.bottom
+
+        implicitHeight: 2
+        implicitWidth:  parent.width
+        color: "#2f2e3e"
+      }
+
       anchors.fill: parent
 
       color: "#11111b"
 
+
       RowLayout {
         anchors.fill: parent
 
-        BotSection{}
-        CenSection{}
-        TopSection{}
-
+        L_Section{ borderHeight: border.height }
+        C_Section{ borderHeight: border.height }
+        R_Section{ borderHeight: border.height }
       }
     }
+
   }
 }
