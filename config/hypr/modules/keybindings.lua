@@ -45,7 +45,7 @@ hl.define_submap("shoji", function ()
   end);
 end)
 
-hl.bind("SUPER + CONTROL + ALT + SHIFT + SPACE", hl.dsp.exec_cmd(Terminal))
+hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(Terminal))
 
 hl.bind(mainMod .. " + E",         hl.dsp.exec_cmd(FileManager)                             )
 hl.bind(mainMod .. " + V",         hl.dsp.window.float({ action = "toggle" })               )

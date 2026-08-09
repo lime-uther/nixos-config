@@ -35,6 +35,11 @@
 
     inputs.prismlauncher.packages.${stdenv.hostPlatform.system}.default
     jdk25
+<<<<<<< Updated upstream
+=======
+    kdePackages.kamoso
+
+>>>>>>> Stashed changes
   ];
 
 }
