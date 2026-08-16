@@ -45,9 +45,9 @@ Rectangle {
       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ][Qt.formatDateTime(new Date(), "M") - 1];
 
-    const day = Qt.formatDateTime(new Date(), "dd");
+    const day = Qt.formatDateTime(new Date(), "ddd dd");
 
-    return `${month} ${day}`;
+    return `${day} ${month}`;
   }
 
   Text {
