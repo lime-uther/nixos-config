@@ -49,9 +49,9 @@ hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(Terminal))
 
 hl.bind(mainMod .. " + E",         hl.dsp.exec_cmd(FileManager)                             )
 hl.bind(mainMod .. " + V",         hl.dsp.window.float({ action = "toggle" })               )
-hl.bind(mainMod .. " + F",         hl.dsp.window.fullscreen({ mode = "maximized"})                               )
-hl.bind(mainMod .. " + SHIFT + F",         hl.dsp.window.fullscreen()                               )
-hl.bind(mainMod .. " + D",     hl.dsp.exec_cmd("pkill " .. Menu .. " || " .. Launchmenu))
+hl.bind(mainMod .. " + F",         hl.dsp.window.fullscreen({ mode = "maximized"})          )
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen()                               )
+hl.bind(mainMod .. " + D",         hl.dsp.exec_cmd("pkill " .. Menu .. " || " .. Launchmenu))
 
 hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("pkill slurp || grim -g \"$(slurp)\" - | wl-copy"))
 hl.bind("CONTROL + PRINT",     hl.dsp.exec_cmd("pkill slurp || grim -g \"$(slurp)\" - | swappy -f -"))
