@@ -35,7 +35,9 @@
 
     inputs.prismlauncher.packages.${stdenv.hostPlatform.system}.default
     jdk25
+
     kdePackages.kamoso
+    kdePackages.okular
 
     discord-ptb
   ];
