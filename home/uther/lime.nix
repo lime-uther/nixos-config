@@ -27,11 +27,17 @@
     '';
   };
 
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+  };
+
   home.packages = with pkgs; [
     gimp
     azahar
     gowall
     spotify
+    obsidian
 
     inputs.prismlauncher.packages.${stdenv.hostPlatform.system}.default
     jdk25
@@ -40,6 +46,12 @@
     kdePackages.okular
 
     discord-ptb
+
+    arduino-cli
+    python3
+
+    tmate
+    osu-lazer
   ];
 
 }

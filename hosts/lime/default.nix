@@ -25,14 +25,15 @@
   };
 
   programs.honkers-railway-launcher.enable = true;
+  programs.anime-game-launcher.enable = true;
 
   users.users.uther = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "dialout" ];
   };
 
   environment.systemPackages = with pkgs; [
-    kitty just wayvnc
+    kitty just wayvnc android-tools
   ];
 
   hardware.graphics = {

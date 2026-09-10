@@ -10,6 +10,5 @@ Rectangle {
   color: "transparent"
 
   required property int borderHeight
-
 }
 

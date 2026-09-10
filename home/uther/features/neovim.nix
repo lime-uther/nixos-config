@@ -16,6 +16,9 @@ let
       lua-language-server
       vscode-langservers-extracted
       kdePackages.qtdeclarative
+      arduino-language-server
+
+      clang-tools
 
     ];
 

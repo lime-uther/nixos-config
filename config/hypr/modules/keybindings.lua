@@ -24,6 +24,7 @@ hl.config({
 
 hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
 hl.device({ name = "elan07b9:00-04f3:3276-touchpad", sensitivity = 0.7, })
+hl.device({ name = "pixart-usb-optical-mouse", sensitivity = 1, })
 hl.device({ name = "2.4g-mouse", sensitivity = 1 })
 
 ---------------------
