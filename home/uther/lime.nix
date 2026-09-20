@@ -51,7 +51,8 @@
     python3
 
     tmate
-    osu-lazer
+    osu-lazer-bin
+    geogebra
   ];
 
 }

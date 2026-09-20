@@ -29,6 +29,6 @@ hl.config({
     blur   = { enabled = false },
   },
 
-  animations = { enabled = true, },
+  animations = { enabled = false, },
 })
 
