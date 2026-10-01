@@ -14,7 +14,7 @@ local beziers = {
 
 local animations = {
 
-  { leaf = "windows"          , speed = 5.0, bezier = "wind"  , style = "slide"         },
+  { leaf = "windows"          , speed = 5.00, bezier = "wind"  , style = "slide"         },
   { leaf = "layersOut"        , speed = 10.0, bezier = "wind"  , style = "slide"         },
   { leaf = "layersIn"         , speed = 4.00, bezier = "winIn" , style = "slide"         },
   { leaf = "windowsIn"        , speed = 1.00, bezier = "winIn" , style = "slide"         },
@@ -36,7 +36,8 @@ for _, bezier in ipairs(beziers) do
 end
 
 for _, animation in ipairs(animations) do
-  animation.enabled = true
+  animation.enabled = animation.leaf ~= "workspaces"
+
   hl.animation(animation)
 end
 

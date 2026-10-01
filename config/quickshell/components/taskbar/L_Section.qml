@@ -57,6 +57,7 @@ Rectangle {
           implicitWidth:  parent.width
           color: parent.isFocused ? "#bfc6d4" : "#2f2e3e"
         }
+
       }
     }
   }

@@ -88,14 +88,6 @@ hl.bind(mainMod .. " + W", function()
 
 end)
 
--- hl.bind("SUPER_L", function ()
---   hl.notification.create({ text = "on", duration = "1000"})
--- end, { transparent = true, non_consuming = true })
---
--- hl.bind(mainMod .. " + SUPER_L", function ()
---   hl.notification.create({ text = "off", duration = "1000"})
--- end, { release = true, non_consuming = true, transparent = true })
-
 local floatables = {
   ["firefox"] = true,
   ["kitty"] = true,
