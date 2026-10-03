@@ -50,7 +50,6 @@
     arduino-cli
     python3
 
-    tmate
     osu-lazer-bin
     geogebra
   ];
