@@ -88,31 +88,55 @@ hl.bind(mainMod .. " + W", function()
 
 end)
 
-local floatables = {
-  ["firefox"] = true,
-  ["kitty"] = true,
-  ["spotify"] = true
-}
+-- local floatables = {
+--   -- ["firefox"] = true,
+--   -- ["kitty"] = true,
+--   -- ["spotify"] = true
+-- }
+--
+-- local windowsOfWorkspace = {}
+--
+-- hl.on('window.open_early', function (window)
+--   if window.class ~= "" then return end
+--
+--   hl.dispatch(hl.dsp.window.tag({ tag = "no_class", window = window }));
+-- end)
+--
+-- hl.on('window.open', function (window)
+--
+--   if not floatables[window.class] then return end
+--
+--   hl.dispatch(hl.dsp.window.float({ action = "on", window = window }))
+--   hl.dispatch(hl.dsp.window.resize({ x = 800, y = 600, false, window = window }))
+--   hl.dispatch(hl.dsp.window.move({ x = 1920/2 - 800/2, y = 1080/2 - 600/2 + 25, false, window = window }))
+--
+--   hl.dispatch(hl.dsp.focus({ window = window }))
+--
+-- end)
 
-local windowsOfWorkspace = {}
+local floatRule = hl.window_rule({
+  name  = "float_all",
+  match = {
+    class = ".+"
+  },
 
-hl.on('window.open_early', function (window)
-  if window.class ~= "" then return end
+  float = true,
+  size = "800 600"
+})
 
-  hl.dispatch(hl.dsp.window.tag({ tag = "no_class", window = window }));
+local float_all = true
+
+hl.bind(mainMod .. " + CONTROL + V", function ()
+  float_all = not float_all
+  floatRule:set_enabled(float_all)
+
+  if float_all then
+    hl.notification.create({ text = "Global Floating: Enabled", duration = "1000"})
+  else
+    hl.notification.create({ text = "Global Floating: Disabled", duration = "1000"})
+  end
 end)
 
-hl.on('window.open', function (window)
-
-  if not floatables[window.class] then return end
-
-  hl.dispatch(hl.dsp.window.float({ action = "on", window = window }))
-  hl.dispatch(hl.dsp.window.resize({ x = 800, y = 600, false, window = window }))
-  hl.dispatch(hl.dsp.window.move({ x = 1920/2 - 800/2, y = 1080/2 - 600/2 + 25, false, window = window }))
-
-  hl.dispatch(hl.dsp.focus({ window = window }))
-
-end)
 
 hl.bind(mainMod .. " + C", hl.dsp.window.move({ x = 1920/2 - 800/2, y = 1080/2 - 600/2, false }))
 

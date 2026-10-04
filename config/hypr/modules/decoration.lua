@@ -26,6 +26,7 @@ hl.config({
     rounding = 4,
 
     shadow = { enabled = false },
+
     blur   = {
       enabled = true,
       size    = 8,

@@ -16,6 +16,16 @@ hl.window_rule({
   no_focus = true,
 })
 
+hl.window_rule({
+  name  = "float_all",
+  match = {
+    class = ".+"
+  },
+
+  float = true,
+  size = "800 600"
+})
+
 hl.layer_rule({
   match = {
     namespace = "awww-daemon"
