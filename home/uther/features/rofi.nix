@@ -3,9 +3,10 @@
 {
   programs.rofi = {
     enable = true;
-    cycle  = true;
 
-    extraConfig = {
+    settings = {
+      cycle  = true;
+
       modi                = "window,run,drun";
       display-drun        = "Applications";
       display-window      = "Windows";

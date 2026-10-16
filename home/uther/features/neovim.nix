@@ -17,8 +17,6 @@ let
       vscode-langservers-extracted
       kdePackages.qtdeclarative
       arduino-language-server
-      html-lsp
-      css-lsp
 
       clang-tools
 

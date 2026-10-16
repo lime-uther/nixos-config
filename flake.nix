@@ -16,11 +16,6 @@
       };
     };
 
-    aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     uther-nvchad-conf = {
       url = "github:lime-uther/NvChad";
       flake = false;

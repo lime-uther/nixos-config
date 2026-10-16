@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -7,8 +7,6 @@
     ../common/global
 
     ../common/optional/hyprland.nix
-
-    inputs.aagl.nixosModules.default
 
   ];
 
@@ -23,9 +21,6 @@
   services.getty = {
     autologinUser = "uther";
   };
-
-  programs.honkers-railway-launcher.enable = true;
-  programs.anime-game-launcher.enable = true;
 
   users.users.uther = {
     isNormalUser = true;
