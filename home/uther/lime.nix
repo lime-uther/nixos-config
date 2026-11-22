@@ -45,13 +45,15 @@
     kdePackages.kamoso
     kdePackages.okular
 
-    discord-ptb
+    discord
 
     arduino-cli
     python3
 
     osu-lazer-bin
     geogebra
+
+    heroic
   ];
 
 }

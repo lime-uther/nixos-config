@@ -83,7 +83,7 @@
         }
       ];
 
-      keyboardShortcutsVersion = 20;
+      # keyboardShortcutsVersion = 20;
     };
   };
 }

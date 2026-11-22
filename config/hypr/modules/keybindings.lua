@@ -88,32 +88,6 @@ hl.bind(mainMod .. " + W", function()
 
 end)
 
--- local floatables = {
---   -- ["firefox"] = true,
---   -- ["kitty"] = true,
---   -- ["spotify"] = true
--- }
---
--- local windowsOfWorkspace = {}
---
--- hl.on('window.open_early', function (window)
---   if window.class ~= "" then return end
---
---   hl.dispatch(hl.dsp.window.tag({ tag = "no_class", window = window }));
--- end)
---
--- hl.on('window.open', function (window)
---
---   if not floatables[window.class] then return end
---
---   hl.dispatch(hl.dsp.window.float({ action = "on", window = window }))
---   hl.dispatch(hl.dsp.window.resize({ x = 800, y = 600, false, window = window }))
---   hl.dispatch(hl.dsp.window.move({ x = 1920/2 - 800/2, y = 1080/2 - 600/2 + 25, false, window = window }))
---
---   hl.dispatch(hl.dsp.focus({ window = window }))
---
--- end)
-
 local floatRule = hl.window_rule({
   name  = "float_all",
   match = {
@@ -180,3 +154,21 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
 
+
+-- Track the current state (true = enabled, false = disabled)
+local mouse_enabled = true
+
+-- Find your exact device name by running: hyprctl devices
+local device_name = "elan07b9:00-04f3:3276-touchpad"
+
+hl.bind("SUPER + M", function()
+    mouse_enabled = not mouse_enabled
+    hl.device({
+        name = device_name,
+        enabled = mouse_enabled,
+    })
+    
+    -- Optional: display notification
+    local state_text = mouse_enabled and "Mouse/Touchpad ON" or "Mouse/Touchpad OFF"
+    hl.notification.create({ text = state_text, timeout = 2000 })
+end)
