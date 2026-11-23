@@ -18,6 +18,8 @@ let
       kdePackages.qtdeclarative
       arduino-language-server
 
+      basedpyright
+
       clang-tools
 
     ];
